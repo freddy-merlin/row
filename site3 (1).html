@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romuald WADAGNI 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+
+        :root {
+            --benin-green: #009E60;
+            --benin-yellow: #FCD116;
+            --benin-red: #E8112D;
+            --dark: #1a1a1a;
+            
+            --primary-blue: #456cb1;
+            --primary-yellow: #f4b657;
+            --primary-white: #ffffff;
+            --dark-bg: #1a2332;
+            --text-light: #ffffff;
+            --text-dark: #1a1a1a;
+        }
+        body { font-family: 'Poppins', sans-serif; overflow-x: hidden; }
+        
+        /* Header */
+          header {
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+            /*background: linear-gradient(90deg, var(--benin-green) 0%, var(--benin-green) 40%, var(--benin-yellow) 40%, var(--benin-yellow) 70%, var(--benin-red) 70%);*/
+            background: #456cb1;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+            animation: headerPulse 3s ease-in-out infinite;
+        }
+        @keyframes headerPulse {
+            0%, 100% { box-shadow: 0 5px 25px rgba(0,0,0,0.3); }
+            50% { box-shadow: 0 8px 35px rgba(232, 185, 35, 0.5); }
+        }
+        nav {
+            max-width: 1400px; margin: 0 auto; padding: 18px 40px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo-container { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .flag-icon {
+            width: 50px; height: 35px;
+            background: linear-gradient(to right, var(--benin-green) 40%, transparent 40%),
+                       linear-gradient(to bottom, var(--benin-yellow) 50%, var(--benin-red) 50%);
+            border-radius: 5px;
+            position: relative;
+            animation: flagWave 2s ease-in-out infinite;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+        @keyframes flagWave {
+            0%, 100% { transform: perspective(400px) rotateY(0deg); }
+            50% { transform: perspective(400px) rotateY(15deg); }
+        }
+        .flag-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: flagShine 3s infinite;
+        }
+        @keyframes flagShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        .logo-text h1 { 
+            font-size: 26px; 
+            font-weight: 900; 
+        }
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+            50% { text-shadow: 0 0 10px rgba(252, 209, 22, 0.8), 2px 2px 4px rgba(0,0,0,0.5); }
+        }
+        .logo-text p { 
+            font-size: 12px; 
+            color: white;
+            animation: fadeInOut 3s ease-in-out infinite;
+        }
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        .nav-links { display: flex; gap: 20px; list-style: none; }
+        .nav-links a {
+            color: white; text-decoration: none; font-weight: 700; font-size: 15px;
+            padding: 8px 15px; border-radius: 20px; transition: all 0.3s;
+        }
+        .nav-links a:hover { background: rgba(255,255,255,0.2); transform: scale(1.05); }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .hamburger span { width: 28px; height: 3px; background: white; border-radius: 2px; transition: 0.3s; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+        
+        /* Hero */
+        .hero {
+            min-height: 100vh; padding: 120px 40px 60px;
+           /* background: linear-gradient(135deg, rgba(0,158,96,0.95), rgba(252,209,22,0.85), rgba(232,17,45,0.95));*/
+background: linear-gradient(
+  135deg,
+  rgba(255, 255, 255, 1),
+  rgba(69, 108, 177, 1)
+);
+
+
+
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 2px, transparent 2px),
+                radial-gradient(circle at 60% 70%, rgba(255,255,255,0.1) 2px, transparent 2px),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 2px, transparent 2px);
+            background-size: 200px 200px;
+            animation: particlesFloat 30s linear infinite;
+        }
+        @keyframes particlesFloat {
+            from { background-position: 0 0; }
+            to { background-position: 1000px 1000px; }
+        }
+        .hero-content {
+            max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+            position: relative; z-index: 10;
+        }
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 900;
+            color: white; margin-bottom: 20px; line-height: 1.1;
+        }
+        .name-highlight { color: var(--primary-yellow); font-size: 68px; display: block; }
+        .tagline {
+            font-size: 28px; color: white; font-weight: 700; margin-bottom: 25px;
+            border-left: 4px solid var(--benin-yellow); padding-left: 15px;
+        }
+        .hero-text p {
+            font-size: 18px; color: rgba(255,255,255,0.95); line-height: 1.7;
+            margin-bottom: 35px; background: rgba(0,0,0,0.2);
+            padding: 20px; border-radius: 10px;
+        }
+        .cta-buttons { display: flex; gap: 20px; flex-wrap: wrap; }
+        .btn {
+            padding: 16px 35px; font-size: 16px; font-weight: 700;
+            border: none; border-radius: 50px; cursor: pointer;
+            text-decoration: none; display: inline-block;
+            transition: all 0.3s; position: relative; overflow: hidden;
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+        .btn-primary {
+            background: white; color: var(--benin-green);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+        }
+        .btn-primary:hover { transform: translateY(-3px); }
+        .btn-secondary {
+            background: transparent; color: white; border: 2px solid white;
+        }
+        .btn-secondary:hover { background: white; color: var(--benin-green); }
+        
+        /* Hero Image - Single with Animation */
+         /* Hero Image avec animations */
+        .hero-image-container {
+            position: relative;
+            flex: 0 0 450px;
+            animation: fadeInRight 10s ease-out;
+            transform: scale(0);
+            opacity: 1;
+            z-index: 10;
+        }
+        
+      
+        
+        .candidate-photo {
+            width: 100%;
+            height: 650px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 
+                0 25px 60px rgba(0, 0, 0, 0.5),
+                0 0 80px rgba(244, 182, 87, 0.3);
+            border: 4px solid var(--primary-yellow);
+            position: relative;
+            animation: photoFloat 4s ease-in-out infinite;
+        }
+        
+        @keyframes photoFloat {
+            0%, 100% { 
+                transform: translateY(0) scale(1); 
+                box-shadow: 
+                    0 25px 60px rgba(0, 0, 0, 0.5),
+                    0 0 80px rgba(244, 182, 87, 0.3);
+            }
+            50% { 
+                transform: translateY(-15px) scale(1.02);
+                box-shadow: 
+                    0 35px 80px rgba(0, 0, 0, 0.6),
+                    0 0 100px rgba(244, 182, 87, 0.4);
+            }
+        }
+        
+        .candidate-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .candidate-photo:hover img {
+            transform: scale(1.1);
+        }
+        
+        .candidate-photo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(69, 108, 177, 0.2), 
+                rgba(244, 182, 87, 0.2));
+            z-index: 1;
+            transition: opacity 0.4s;
+        }
+        
+        .candidate-photo:hover::before {
+            opacity: 0;
+        }
+        
+        .candidate-photo::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.15), 
+                transparent);
+            animation: shinePhoto 4s infinite;
+            z-index: 2;
+        }
+        
+        @keyframes shinePhoto {
+            0% { 
+                transform: translateX(-100%) translateY(-100%) rotate(45deg); 
+            }
+            100% { 
+                transform: translateX(100%) translateY(100%) rotate(45deg); 
+            }
+        }
+        
+        .photo-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 3;
+            background: var(--primary-yellow);
+            color: var(--dark);
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 900;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 20px rgba(244, 182, 87, 0.5);
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes badgePulse {
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 5px 20px rgba(244, 182, 87, 0.5);
+            }
+            50% { 
+                transform: scale(1.1); 
+                box-shadow: 0 8px 30px rgba(244, 182, 87, 0.7);
+            }
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--dark-bg);
+        }
+
+        /* Background avec effet de zoom */
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(69, 108, 177, 0.4) 0%,
+                rgba(26, 35, 50, 0.85) 40%,
+                rgba(244, 182, 87, 0.3) 100%
+            );
+            z-index: 1;
+            transform: scale(2.5);
+            opacity: 0;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(90deg, rgba(244, 182, 87, 0.05) 0px, transparent 1px, transparent 40px, rgba(244, 182, 87, 0.05) 41px),
+                repeating-linear-gradient(0deg, rgba(69, 108, 177, 0.05) 0px, transparent 1px, transparent 40px, rgba(69, 108, 177, 0.05) 41px);
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(244, 182, 87, 0.15) 0%, transparent 70%);
+            filter: blur(80px);
+        }
+
+        /* Image d'arrière-plan (Benin ou candidat) */
+     /* .hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(69, 108, 177, 0.55) 0%,
+            rgba(26, 35, 50, 0.75) 50%,
+            rgba(244, 182, 87, 0.45) 100%
+        ),
+        url("./row.mp4");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    transform: scale(1.25);  
+    opacity: 0;
+
+    z-index: 0;
+    will-change: transform, opacity;
+} */
+
+ .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.25);
+            opacity: 10;
+            z-index: 0;
+            will-change: transform, opacity;
+        }
+
+       .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(69, 108, 177, 0.55) 10%,
+                rgba(26, 35, 50, 0.75) 50%,
+                rgba(244, 182, 87, 0.45) 100%
+            );
+            z-index: 1;
+           
+        }
+
+ 
+
+
+        /* Contenu principal */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            width: 100%;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+        }
+
+        .hero-text {
+            flex: 1;
+            text-align: left;
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        .hero-image-container {
+            flex: 0 0 450px;
+            position: relative;
+            transform: scale(0);
+            opacity: 0;
+        }
+ 
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(244, 182, 87, 0.2);
+            border: 2px solid var(--primary-yellow);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.5rem;
+            letter-spacing: 4px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 7rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: -3px;
+        }
+
+        .hero-title .name {
+            display: block;
+            background: linear-gradient(135deg, 
+                var(--primary-blue) 0%, 
+                var(--primary-white) 35%,
+                var(--primary-yellow) 70%,
+                var(--primary-white) 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 80px rgba(244, 182, 87, 0.3);
+            background-size: 200% 200%;
+            animation: gradientShift 4s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .hero-title .year {
+            display: block;
+            font-size: 6rem;
+            color: var(--primary-yellow);
+            margin-top: 0.5rem;
+        }
+
+        .hero-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-tagline {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-yellow);
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 650px;
+            margin: 0 0 3rem 0;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Décorations animées */
+        .hero-decoration {
+            position: absolute;
+            z-index: 5;
+        }
+
+        .star {
+            width: 4px;
+            height: 4px;
+            background: var(--primary-yellow);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary-yellow);
+            opacity: 0;
+        }
+
+        .star-1 { top: 15%; left: 10%; }
+        .star-2 { top: 25%; right: 15%; }
+        .star-3 { top: 70%; left: 20%; }
+        .star-4 { bottom: 15%; right: 10%; }
+        .star-5 { top: 40%; left: 5%; }
+        .star-6 { top: 60%; right: 8%; }
+
+        /* Flag colors accent */
+        .flag-accent {
+            position: absolute;
+            z-index: 2;
+            opacity: 0;
+        }
+
+        .flag-left {
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            background: linear-gradient(to right, var(--primary-blue), transparent);
+        }
+
+        .flag-right {
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100%;
+            background: linear-gradient(to left, var(--primary-yellow), transparent);
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            opacity: 0;
+        }
+
+        .scroll-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .scroll-arrow {
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--primary-yellow);
+            border-radius: 20px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .scroll-arrow::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-yellow);
+            border-radius: 50%;
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes scroll {
+            0%, 100% {
+                top: 8px;
+                opacity: 1;
+            }
+            50% {
+                top: 28px;
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text {
+                text-align: center;
+            }
+
+        
+
+            .hero-description {
+                max-width: 100%;
+                margin: 0 auto 3rem;
+            }
+
+            .hero-cta {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 968px) {
+            .hero-title {
+                font-size: 5rem;
+            }
+
+            .hero-title .year {
+                font-size: 4rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.8rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-image-container {
+                flex: 0 0 280px;
+            }
+
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .hero-title .year {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+
+            .hero-tagline {
+                font-size: 1.1rem;
+            }
+
+            .hero-description {
+                font-size: 0.95rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .hero-cta .btn {
+                width: 100%;
+            }
+        }
+        
+        /* Stats Section */
+        .live-stats {
+            padding: 80px 40px;
+            background: linear-gradient(135deg, var(--dark) 0%, #2c3e50 100%);
+        }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 {
+            font-family: 'Playfair Display', serif; font-size: 48px;
+            font-weight: 900; color: white; margin-bottom: 10px;
+        }
+        .section-header p { font-size: 18px; color: rgba(255,255,255,0.8); }
+        .stats-dashboard {
+            max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .stat-card {
+            text-align: center; padding: 40px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px; border: 2px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+        .stat-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255,255,255,0.1);
+            border-color: var(--benin-yellow);
+        }
+        .stat-icon { font-size: 50px; margin-bottom: 15px; }
+        .stat-number {
+            font-size: 52px; font-weight: 900;
+             
+            background: linear-gradient(135deg,   var(--benin-yellow) );
+
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .stat-label { color: white; font-size: 18px; font-weight: 600; }
+        .stat-sublabel { color: rgba(255,255,255,0.6); font-size: 13px; margin-top: 8px; }
+        
+        /* Video Wall */
+        .video-wall {
+            padding: 80px 40px;
+            background: linear-gradient(to bottom, white 0%, #f8f9fa 100%);
+        }
+        .video-wall h2 {
+            font-family: 'Playfair Display', serif; text-align: center;
+            font-size: 48px; font-weight: 900;
+            /*background:  #456cb1;*/
+            background:  #456cb1;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 50px;
+        }
+        .video-grid {
+            max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px; margin-bottom: 40px;
+        }
+        .video-card {
+            background: white; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s; cursor: pointer;
+        }
+        .video-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
+      .video-thumbnail {
+            width: 100%; 
+            height: 180px;
+            background-image: url("./hq720.jpg");
+            background-size: cover;  
+            background-position: center;  
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-size: 70px; 
+            position: relative;
+        }
+        .play-icon {
+            position: absolute; width: 60px; height: 60px;
+            background: rgba(255,255,255,0.9); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 25px; color: var(--benin-green);
+            transition: all 0.3s;
+        }
+        .video-card:hover .play-icon {
+            transform: scale(1.2);
+        }
+        .video-info { padding: 18px; }
+        .video-author { font-weight: 700; color: var(--benin-green); margin-bottom: 4px; }
+        .video-location { font-size: 13px; color: #999; margin-bottom: 8px; }
+        .video-caption { font-size: 14px; color: #666; line-height: 1.5; }
+        
+        /* Forum */
+        .forum-section {
+            padding: 80px 40px;
+            background: linear-gradient(135deg, var(--dark) 0%, #2c3e50 100%);
+        }
+        .foum-section h2 {
+            font-family: 'Playfair Display', serif; text-align: center;
+            font-size: 48px; font-weight: 900; color: white;
+            margin-bottom: 50px;
+        }
+        .forum-container { max-width: 1200px; margin: 0 auto; }
+        .forum-tabs {
+            display: flex; gap: 12px; margin-bottom: 35px;
+            justify-content: center; flex-wrap: wrap;
+        }
+        .forum-tab {
+            padding: 12px 28px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 40px; color: white; font-weight: 600;
+            cursor: pointer; transition: all 0.3s;
+        }
+        .forum-tab:hover, .forum-tab.active {
+            background: var(--benin-yellow); color: var(--dark);
+            border-color: var(--benin-yellow);
+        }
+        .forum-posts { display: grid; gap: 20px; }
+        .forum-post {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px; padding: 25px;
+            transition: all 0.3s; cursor: pointer;
+        }
+        .forum-post:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--benin-yellow);
+        }
+        .post-header {
+            display: flex; justify-content: space-between;
+            align-items: start; margin-bottom: 12px;
+        }
+        .post-user { display: flex; align-items: center; gap: 12px; }
+        .user-avatar {
+            width: 45px; height: 45px;
+            background: linear-gradient(135deg, var(--benin-green), var(--benin-yellow));
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; font-size: 22px;
+        }
+        .user-info h4 { color: white; font-size: 15px; margin-bottom: 2px; }
+        .user-info p { color: rgba(255,255,255,0.6); font-size: 12px; }
+        .post-category {
+            background: var(--benin-green); color: white;
+            padding: 4px 14px; border-radius: 15px;
+            font-size: 11px; font-weight: 600;
+        }
+        .post-title { color: var(--benin-yellow); font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+        .post-content { color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 12px; }
+        .post-stats {
+            display: flex; gap: 25px;
+            color: rgba(255,255,255,0.6); font-size: 13px;
+        }
+        
+        /* Challenges */
+        .challenges-section {
+            padding: 80px 40px;
+            background:  #456cb1;
+            position: relative;
+        }
+        .challenges-section h2 {
+            font-family: 'Playfair Display', serif; text-align: center;
+            font-size: 48px; font-weight: 900; color: white;
+            margin-bottom: 50px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .challenges-grid {
+            max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .challenge-card {
+            background: white; border-radius: 20px; padding: 35px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+            transition: all 0.3s; position: relative; overflow: hidden;
+        }
+        .challenge-card::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--benin-green), var(--benin-yellow), var(--benin-red));
+        }
+        .challenge-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .challenge-icon { font-size: 52px; margin-bottom: 18px; }
+        .challenge-title {
+            font-size: 24px; font-weight: 700;
+            color: var(--benin-green); margin-bottom: 12px;
+        }
+        .challenge-description {
+            color: #666; line-height: 1.6; margin-bottom: 20px;
+        }
+        .progress-bar-container {
+            width: 100%; height: 10px; background: #e0e0e0;
+            border-radius: 8px; overflow: hidden; margin: 8px 0;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--benin-green), var(--benin-yellow));
+            border-radius: 8px; transition: width 1s ease;
+        }
+        .progress-text {
+            display: flex; justify-content: space-between;
+            font-size: 13px; color: #666; margin-top: 6px;
+        }
+        .challenge-reward {
+            background: rgba(0,158,96,0.1); padding: 12px;
+            border-radius: 8px; border-left: 3px solid var(--benin-green);
+            margin: 18px 0; font-size: 14px;
+        }
+        .challenge-btn {
+            width: 100%; padding: 14px;
+            background: linear-gradient(135deg, var(--benin-green), var(--benin-yellow));
+            color: white; border: none; border-radius: 40px;
+            font-weight: 700; font-size: 15px;
+            cursor: pointer; transition: all 0.3s;
+        }
+        .challenge-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,158,96,0.4);
+        }
+        
+        /* News Section */
+        .news-section {
+            padding: 80px 40px;
+            background: linear-gradient(to bottom, #f8f9fa 0%, white 100%);
+        }
+        .news-section h2 {
+            font-family: 'Playfair Display', serif; text-align: center;
+            font-size: 48px; font-weight: 900;
+            background:  #456cb1;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 50px;
+        }
+        .news-grid {
+            max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        .news-card {
+            background: white; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s; cursor: pointer;
+        }
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        .news-image {
+            width: 100%; height: 220px;
+          /*  background:  #456cb1; */
+          background: #456cb1;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 80px; position: relative; overflow: hidden;
+        }
+        .news-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: slideShine 3s infinite;
+        }
+        @keyframes slideShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        .news-content { padding: 25px; }
+        .news-date {
+            color: var(--benin-green); font-weight: 700;
+            font-size: 13px; margin-bottom: 8px;
+        }
+        .news-title {
+            font-size: 22px; font-weight: 700;
+            color: var(--dark); margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        .news-excerpt {
+            color: #666; line-height: 1.6; margin-bottom: 15px;
+            font-size: 15px;
+        }
+        .news-link {
+            color: var(--benin-green); text-decoration: none;
+            font-weight: 700; display: inline-flex;
+            align-items: center; gap: 8px;
+            transition: all 0.3s;
+        }
+        .news-link:hover { gap: 15px; }
+        
+        /* Program */
+        .program {
+            padding: 80px 40px;
+            background:  #456cb1;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif; text-align: center;
+            font-size: 48px; font-weight: 900; color: white;
+            margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .section-subtitle {
+            text-align: center; font-size: 22px;
+            color: rgba(255,255,255,0.95); margin-bottom: 50px;
+        }
+        .program-cards {
+            max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+        }
+        .program-card {
+            background: white; border-radius: 20px; padding: 38px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+            transition: all 0.3s; cursor: pointer;
+        }
+        .program-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .card-icon {
+            width: 80px; height: 80px;
+            background: linear-gradient(135deg, var(--benin-green), var(--benin-yellow));
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            font-size: 42px; margin-bottom: 22px;
+        }
+        .program-card h3 {
+            font-size: 26px; margin-bottom: 14px;
+            color: var(--benin-green);
+        }
+        .program-card p {
+            color: #555; line-height: 1.7; font-size: 15px;
+        }
+        
+        /* Join */
+        .join-section {
+            padding: 80px 40px;
+            background: linear-gradient(to bottom, white 0%, #f8f9fa 100%);
+        }
+        .join-header { text-align: center; margin-bottom: 60px; }
+        .join-header h2 {
+            font-family: 'Playfair Display', serif; font-size: 48px;
+            font-weight: 900;
+           /* background:  #456cb1;*/
+            background: #456cb1;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+        .join-header p { font-size: 20px; color: #666; }
+        .join-options {
+            max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 35px;
+        }
+        .join-card {
+            background: white; border-radius: 20px; padding: 42px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s; position: relative; overflow: hidden;
+        }
+        .join-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--benin-green), var(--benin-yellow), var(--benin-red));
+        }
+        .join-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+        .join-icon { 
+            font-size: 62px; 
+            margin-bottom: 22px;
+            animation: iconBounce 3s ease-in-out infinite;
+        }
+        @keyframes iconBounce {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-5deg); }
+            75% { transform: scale(1.1) rotate(5deg); }
+        }
+        .join-card h3 {
+            font-size: 30px; margin-bottom: 16px;
+            color: var(--benin-green);
+        }
+        .join-card p {
+            color: #555; line-height: 1.7; font-size: 16px;
+            margin-bottom: 26px;
+        }
+        .join-card ul { list-style: none; margin-bottom: 26px; }
+        .join-card ul li {
+            padding: 9px 0; color: #444; font-size: 15px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .join-card ul li::before {
+            content: '✓'; color: var(--benin-green);
+            font-weight: 900; font-size: 18px;
+        }
+        .join-card .btn { width: 100%; }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a252f 100%);
+            color: white; padding: 60px 40px 25px;
+        }
+        .footer-content {
+            max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 38px; margin-bottom: 38px;
+        }
+        .footer-section h4 {
+            font-size: 20px; margin-bottom: 18px;
+            color: var(--benin-yellow);
+        }
+        .footer-section ul { list-style: none; }
+        .footer-section ul li { margin-bottom: 10px; }
+        .footer-section a {
+            color: rgba(255,255,255,0.8); text-decoration: none;
+            transition: all 0.3s; font-size: 15px;
+        }
+        .footer-section a:hover {
+            color: var(--benin-yellow); padding-left: 8px;
+        }
+        .social-links { display: flex; gap: 16px; margin-top: 18px; }
+        .social-links a {
+            width: 50px; height: 50px;
+            background: linear-gradient(135deg, var(--benin-green), var(--benin-yellow));
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            font-size: 24px; transition: all 0.3s;
+        }
+        .social-links a:hover {
+            transform: scale(1.15) rotate(360deg);
+        }
+        .footer-bottom {
+            text-align: center; padding-top: 30px;
+            border-top: 2px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6); font-size: 14px;
+        }
+        
+        /* Scroll Top */
+        .scroll-top {
+            position: fixed; bottom: 35px; right: 35px;
+            width: 55px; height: 55px;
+            background: linear-gradient(135deg, var(--benin-green), var(--benin-yellow));
+            border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            font-size: 26px; color: white;
+            cursor: pointer; opacity: 0; visibility: hidden;
+            transition: all 0.3s; z-index: 999;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        .scroll-top.visible { opacity: 1; visibility: visible; }
+        .scroll-top:hover { transform: translateY(-8px) scale(1.1); }
+        
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hamburger { display: flex; }
+            .nav-links {
+                position: fixed; top: 75px; left: -100%;
+                width: 280px; height: calc(100vh - 75px);
+                background: linear-gradient(180deg, var(--benin-green) 0%, var(--benin-yellow) 50%, var(--benin-red) 100%);
+                flex-direction: column; padding: 35px 25px;
+                gap: 18px; box-shadow: 5px 0 20px rgba(0,0,0,0.3);
+                transition: left 0.4s; z-index: 999;
+            }
+            .nav-links.active { left: 0; }
+            .hero-content { grid-template-columns: 1fr; gap: 40px; }
+            .hero-text h1 { font-size: 38px; }
+            .name-highlight { font-size: 48px; }
+            .tagline { font-size: 22px; }
+            .candidate-photo { max-width: 100%; height: 500px; }
+            .section-header h2, .section-title { font-size: 36px; }
+            .join-options { grid-template-columns: 1fr; }
+            .program-cards, .challenges-grid, .news-grid { grid-template-columns: 1fr; }
+        }
+        
+        @media (max-width: 640px) {
+            .logo-text h1 { font-size: 20px; }
+            .logo-text p { font-size: 10px; }
+            .hero-text h1 { font-size: 30px; }
+            .name-highlight { font-size: 38px; }
+            .tagline { font-size: 18px; }
+            .hero-text p { font-size: 15px; }
+            .cta-buttons { flex-direction: column; }
+            .btn { width: 100%; padding: 14px 26px; font-size: 14px; }
+            .candidate-photo { height: 400px; }
+            .section-header h2, .section-title { font-size: 30px; }
+            .section-header p, .section-subtitle { font-size: 15px; }
+            .video-grid, .news-grid { grid-template-columns: 1fr; }
+            .forum-tabs { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav>
+            <div class="logo-container">
+               <!-- <div class="flag-icon"></div>-->
+                <div class="logo-text">
+                    <h1 style=" color: #f4b657 ;">ROW 2026</h1>
+                   <!-- <p>Pour un Bénin Nouveau</p>-->
+                </div>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#stats">Stats</a></li>
+                <li><a href="#videos">Vidéos</a></li>
+                <li><a href="#actualites">Actualités</a></li>
+                <li><a href="#forum">Forum</a></li>
+                <li><a href="#challenges">Challenges</a></li>
+                <li><a href="#programme">Programme</a></li>
+                <li><a href="#rejoindre">Rejoindre</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <!-- Background layers -->
+        
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="./row.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la vidéo.
+        </video>
+
+    <div class="hero-overlay"></div>
+        <div class="hero-bg"></div>
+        
+        <!-- Flag accents -->
+        <div class="flag-accent flag-left"></div>
+        <div class="flag-accent flag-right"></div>
+
+        <!-- Decorative stars -->
+        <div class="hero-decoration star star-1"></div>
+        <div class="hero-decoration star star-2"></div>
+        <div class="hero-decoration star star-3"></div>
+        <div class="hero-decoration star star-4"></div>
+        <div class="hero-decoration star star-5"></div>
+        <div class="hero-decoration star star-6"></div>
+
+        <!-- Main content -->
+        <div class="hero-content">
+         
+            <div class="hero-text">
+                <div class="hero-badge" style=" color: white;">Ensemble avec Romuald</div>
+                
+                <h1 class="hero-title">
+                   <div style="display: flex; gap: 26px;">
+                            <span class=" year">WADAGNI</span>
+                            <span class=" year">2026</span>
+                    </div>
+
+                   
+                    
+                </h1>
+                
+               <!-- <h1>Ensemble avec<span class="name-highlight">Romuald WADAGNI</span></h1>-->
+                
+                <p class="hero-description">
+                    Avec une vision claire, une expérience internationale et un engagement total pour notre nation, 
+                    je suis prêt à conduire le Bénin vers un avenir de prospérité, de justice et de développement durable.
+                </p>
+                
+                <div class="hero-cta">
+                    <a href="#programme" class="btn btn-primary">
+                        <span style="color: #456cb1;">Notre Programme</span>
+                    </a>
+                    <a href="#rejoindre" class="btn btn-secondary">
+                        <span>Rejoindre</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Image à droite -->
+
+                     
+            <div class="hero-image-container">
+                <div class="candidate-photo">
+                  <!--  <div class="photo-badge">2026</div>-->
+                    <img src="roo.png" alt="Romuald WADAGNI">
+                </div>
+            </div>
+            
+        </div>
+ 
+
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-text">Découvrir</div>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+        <section class="join-section" id="rejoindre">
+        <div class="join-header">
+            <h2 style="color: #456cb1;">Rejoignez-Nous</h2>
+            <p>Choisissez votre mode d'engagement</p>
+        </div>
+        <div class="join-options">
+            <div class="join-card">
+                <div class="join-icon">👥</div>
+                <h3>En Tant que Mouvement</h3>
+                <p>Vous représentez une organisation ? Unissons nos forces !</p>
+                <ul>
+                    <li>Partenariat stratégique</li>
+                    <li>Ressources partagées</li>
+                    <li>Visibilité accrue</li>
+                    <li>Impact collectif</li>
+                    <li>Formations dédiées</li>
+                </ul>
+                <a href="#" class="btn btn-primary" onclick="alert('Formulaire bientôt disponible!'); return false;"><span>Inscrire Notre Mouvement</span></a>
+            </div>
+            <div class="join-card">
+                <div class="join-icon">🙋</div>
+                <h3>À Titre Individuel</h3>
+                <p>Citoyen engagé ? Bienvenue !</p>
+                <ul>
+                    <li>Adhésion simple</li>
+                    <li>Participation aux événements</li>
+                    <li>Bénévolat flexible</li>
+                    <li>Formation citoyenne</li>
+                    <li>Mobilisation de terrain</li>
+                </ul>
+                <a href="#" class="btn btn-primary" onclick="alert('Formulaire bientôt disponible!'); return false;"><span>Adhérer Individuellement</span></a>
+            </div>
+        </div>
+    </section>
+
+    <section class="live-stats" id="stats">
+        <div class="section-header">
+            <h2>Notre Mouvement en Chiffres</h2>
+            <p>En temps réel - Ensemble, nous sommes plus forts !</p>
+        </div>
+        <div class="stats-dashboard">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-number">1,247</div>
+                <div class="stat-label">Mouvements Affiliés</div>
+                <div class="stat-sublabel">+43 cette semaine</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🙋</div>
+                <div class="stat-number">85,392</div>
+                <div class="stat-label">Membres Individuels</div>
+                <div class="stat-sublabel">+2,156 cette semaine</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🤝</div>
+                <div class="stat-number">12,847</div>
+                <div class="stat-label">Militants Actifs</div>
+                <div class="stat-sublabel">Sur le terrain</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎥</div>
+                <div class="stat-number">3,456</div>
+                <div class="stat-label">Vidéos de Soutien</div>
+                <div class="stat-sublabel">+87 aujourd'hui</div>
+            </div>
+          
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-number">28</div>
+                <div class="stat-label">Challenges Actifs</div>
+                <div class="stat-sublabel">Rejoignez-nous !</div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section class="video-wall" id="videos">
+        <h2>Mur de Soutiens Vidéo</h2>
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-thumbnail">🎬<div class="play-icon">▶</div></div>
+                <div class="video-info">
+                    <div class="video-author">Aminata KOUASSI</div>
+                    <div class="video-location">Cotonou, Littoral</div>
+                    <p class="video-caption">"Je soutiens Romuald WADAGNI car il incarne le changement dont nous avons besoin !"</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-thumbnail">🎬<div class="play-icon">▶</div></div>
+                <div class="video-info">
+                    <div class="video-author">Jean-Pierre AGBO</div>
+                    <div class="video-location">Parakou, Borgou</div>
+                    <p class="video-caption">"Notre jeunesse mérite un leader visionnaire. WADAGNI 2026 !"</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-thumbnail">🎬<div class="play-icon">▶</div></div>
+                <div class="video-info">
+                    <div class="video-author">Marie DOSSOU</div>
+                    <div class="video-location">Porto-Novo, Ouémé</div>
+                    <p class="video-caption">"Pour l'éducation de nos enfants, je vote WADAGNI !"</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-thumbnail">🎬<div class="play-icon">▶</div></div>
+                <div class="video-info">
+                    <div class="video-author">Moussa KORA</div>
+                    <div class="video-location">Natitingou, Atacora</div>
+                    <p class="video-caption">"Un homme intègre pour un Bénin prospère !"</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-thumbnail">🎬<div class="play-icon">▶</div></div>
+                <div class="video-info">
+                    <div class="video-author">Sylvie HOUNKPATIN</div>
+                    <div class="video-location">Abomey, Zou</div>
+                    <p class="video-caption">"Wadagni comprend les besoins des agriculteurs !"</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-thumbnail">🎬<div class="play-icon">▶</div></div>
+                <div class="video-info">
+                    <div class="video-author">Fiacre ASSOGBA</div>
+                    <div class="video-location">Lokossa, Mono</div>
+                    <p class="video-caption">"L'homme pour transformer notre économie !"</p>
+                </div>
+            </div>
+            
+            <div class="video-card">
+                <div class="video-thumbnail">🎬<div class="play-icon">▶</div></div>
+                <div class="video-info">
+                    <div class="video-author">Fiacre ASSOGBA</div>
+                    <div class="video-location">Lokossa, Mono</div>
+                    <p class="video-caption">"L'homme pour transformer notre économie !"</p>
+                </div>
+            </div>
+            
+            <div class="video-card">
+                <div class="video-thumbnail">🎬<div class="play-icon">▶</div></div>
+                <div class="video-info">
+                    <div class="video-author">Fiacre ASSOGBA</div>
+                    <div class="video-location">Lokossa, Mono</div>
+                    <p class="video-caption">"L'homme pour transformer notre économie !"</p>
+                </div>
+            </div>
+              
+        </div>
+        <a href="#" class="btn btn-primary" style="display:block; max-width:400px; margin:0 auto; text-align:center;" onclick="alert('Fonctionnalité bientôt disponible!'); return false;">
+            <span>📹 Envoyez Votre Vidéo</span>
+        </a>
+    </section>
+
+    <section class="news-section" id="actualites">
+        <h2>Actualités de la Campagne</h2>
+        <div class="news-grid">
+            <div class="news-card">
+                <div class="news-image">📰</div>
+                <div class="news-content">
+                    <div class="news-date">28 Janvier 2026</div>
+                    <h3 class="news-title">Lancement Officiel de la Campagne à Cotonou</h3>
+                    <p class="news-excerpt">Plus de 10,000 militants réunis pour le lancement historique de la campagne présidentielle de Romuald WADAGNI dans une ambiance festive et engagée. Un moment fort qui marque le début d'une nouvelle ère pour le Bénin.</p>
+                    <a href="#" class="news-link">Lire la suite →</a>
+                </div>
+            </div>
+            <div class="news-card">
+                <div class="news-image">🎤</div>
+                <div class="news-content">
+                    <div class="news-date">25 Janvier 2026</div>
+                    <h3 class="news-title">Rencontre avec les Agriculteurs du Zou</h3>
+                    <p class="news-excerpt">Échange fructueux avec les coopératives agricoles du département du Zou sur la modernisation du secteur et l'autonomisation des producteurs locaux. Des solutions concrètes ont été présentées.</p>
+                    <a href="#" class="news-link">Lire la suite →</a>
+                </div>
+            </div>
+            <div class="news-card">
+                <div class="news-image">🏫</div>
+                <div class="news-content">
+                    <div class="news-date">22 Janvier 2026</div>
+                    <h3 class="news-title">Visite d'Écoles à Parakou</h3>
+                    <p class="news-excerpt">Tournée dans plusieurs établissements scolaires de Parakou pour constater les défis de l'éducation et présenter les solutions innovantes de notre programme éducatif ambitieux.</p>
+                    <a href="#" class="news-link">Lire la suite →</a>
+                </div>
+            </div>
+            <div class="news-card">
+                <div class="news-image">💼</div>
+                <div class="news-content">
+                    <div class="news-date">20 Janvier 2026</div>
+                    <h3 class="news-title">Forum avec les Jeunes Entrepreneurs</h3>
+                    <p class="news-excerpt">Session de travail avec plus de 200 jeunes entrepreneurs pour discuter des opportunités d'emploi et de création d'entreprises pour la jeunesse béninoise. Des engagements concrets ont été pris.</p>
+                    <a href="#" class="news-link">Lire la suite →</a>
+                </div>
+            </div>
+            <div class="news-card">
+                <div class="news-image">🤝</div>
+                <div class="news-content">
+                    <div class="news-date">18 Janvier 2026</div>
+                    <h3 class="news-title">Adhésion de Plusieurs Mouvements Citoyens</h3>
+                    <p class="news-excerpt">15 organisations de la société civile annoncent leur soutien officiel à la candidature de Romuald WADAGNI, renforçant ainsi la coalition pour le changement et l'unité nationale.</p>
+                    <a href="#" class="news-link">Lire la suite →</a>
+                </div>
+            </div>
+            <div class="news-card">
+                <div class="news-image">🎯</div>
+                <div class="news-content">
+                    <div class="news-date">15 Janvier 2026</div>
+                    <h3 class="news-title">Présentation du Programme Santé Universelle</h3>
+                    <p class="news-excerpt">Dévoilement du volet santé du programme électoral avec un plan ambitieux pour garantir l'accès aux soins de qualité pour tous les Béninois, dans chaque département du pays.</p>
+                    <a href="#" class="news-link">Lire la suite →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="forum-section" id="forum">
+        <h2>Forum Citoyen</h2>
+        <div class="forum-container">
+            <div class="forum-tabs">
+                <div class="forum-tab active">💬 Toutes</div>
+                <div class="forum-tab">❓ Questions</div>
+                <div class="forum-tab">💡 Propositions</div>
+                <div class="forum-tab">📢 Annonces</div>
+            </div>
+            <div class="forum-posts">
+                <div class="forum-post">
+                    <div class="post-header">
+                        <div class="post-user">
+                            <div class="user-avatar">👨</div>
+                            <div class="user-info">
+                                <h4>Kodjo MENSAH</h4>
+                                <p>Il y a 2h • Atlantique</p>
+                            </div>
+                        </div>
+                        <div class="post-category">Question</div>
+                    </div>
+                    <h3 class="post-title">Quelle est la vision pour l'agriculture ?</h3>
+                    <p class="post-content">J'aimerais en savoir plus sur les projets concrets pour moderniser notre agriculture...</p>
+                    <div class="post-stats">
+                        <div>👍 24</div><div>💬 12</div><div>👁️ 156</div>
+                    </div>
+                </div>
+                <div class="forum-post">
+                    <div class="post-header">
+                        <div class="post-user">
+                            <div class="user-avatar">👩</div>
+                            <div class="user-info">
+                                <h4>Clarisse ADJANOHOUN</h4>
+                                <p>Il y a 5h • Ouémé</p>
+                            </div>
+                        </div>
+                        <div class="post-category">Proposition</div>
+                    </div>
+                    <h3 class="post-title">Organiser des caravanes dans les villages</h3>
+                    <p class="post-content">Je propose que nous organisions des caravanes de sensibilisation...</p>
+                    <div class="post-stats">
+                        <div>👍 67</div><div>💬 28</div><div>👁️ 342</div>
+                    </div>
+                </div>
+                <div class="forum-post">
+                    <div class="post-header">
+                        <div class="post-user">
+                            <div class="user-avatar">👨</div>
+                            <div class="user-info">
+                                <h4>Rodrigue KPEDO</h4>
+                                <p>Il y a 1 jour • Borgou</p>
+                            </div>
+                        </div>
+                        <div class="post-category">Discussion</div>
+                    </div>
+                    <h3 class="post-title">Comment mobiliser les jeunes ?</h3>
+                    <p class="post-content">Partageons nos idées pour impliquer davantage la jeunesse dans cette campagne...</p>
+                    <div class="post-stats">
+                        <div>👍 89</div><div>💬 45</div><div>👁️ 521</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="challenges-section" id="challenges">
+        <h2>Challenges de Mobilisation</h2>
+        <div class="challenges-grid">
+            <div class="challenge-card">
+                <div class="challenge-icon">🎯</div>
+                <h3 class="challenge-title">Challenge 1000 Vidéos</h3>
+                <p class="challenge-description">Aidez-nous à atteindre 1000 vidéos cette semaine !</p>
+                <div class="challenge-progress">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width:68%;"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>680/1000</span><span>68%</span>
+                    </div>
+                </div>
+                <div class="challenge-reward"><strong>Récompense:</strong> Rencontre exclusive</div>
+                <button class="challenge-btn">Participer</button>
+            </div>
+            <div class="challenge-card">
+                <div class="challenge-icon">📢</div>
+                <h3 class="challenge-title">Challenge Réseaux Sociaux</h3>
+                <p class="challenge-description">Partagez 5 publications et invitez 10 amis !</p>
+                <div class="challenge-progress">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width:45%;"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>4,520/10,000</span><span>45%</span>
+                    </div>
+                </div>
+                <div class="challenge-reward"><strong>Récompense:</strong> Badge + T-shirt</div>
+                <button class="challenge-btn">Participer</button>
+            </div>
+            <div class="challenge-card">
+                <div class="challenge-icon">🚶</div>
+                <h3 class="challenge-title">Challenge Porte-à-Porte</h3>
+                <p class="challenge-description">Rencontrez 50 familles dans votre quartier !</p>
+                <div class="challenge-progress">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width:82%;"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>1,640/2,000</span><span>82%</span>
+                    </div>
+                </div>
+                <div class="challenge-reward"><strong>Récompense:</strong> Formation + Certificat</div>
+                <button class="challenge-btn">Participer</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="program" id="programme">
+        <h2 class="section-title">Notre Programme</h2>
+        <p class="section-subtitle">6 Piliers pour Transformer le Bénin</p>
+        <div class="program-cards">
+            <div class="program-card">
+                <div class="card-icon">🎓</div>
+                <h3>Éducation de Qualité</h3>
+                <p>Formation d'excellence pour tous, infrastructures modernes, enseignants valorisés.</p>
+            </div>
+            <div class="program-card">
+                <div class="card-icon">💼</div>
+                <h3>Emploi & Entrepreneuriat</h3>
+                <p>Création massive d'emplois, soutien aux PME, promotion de l'entrepreneuriat jeune.</p>
+            </div>
+            <div class="program-card">
+                <div class="card-icon">🏥</div>
+                <h3>Santé Universelle</h3>
+                <p>Système de santé accessible, hôpitaux équipés, télémédecine en zones rurales.</p>
+            </div>
+            <div class="program-card">
+                <div class="card-icon">⚡</div>
+                <h3>Énergie & Infrastructure</h3>
+                <p>Électricité permanente, routes modernes, ports efficaces, énergies renouvelables.</p>
+            </div>
+            <div class="program-card">
+                <div class="card-icon">🌾</div>
+                <h3>Agriculture Moderne</h3>
+                <p>Mécanisation, irrigation, transformation locale, autosuffisance alimentaire.</p>
+            </div>
+            <div class="program-card">
+                <div class="card-icon">⚖️</div>
+                <h3>Justice & Gouvernance</h3>
+                <p>État de droit renforcé, justice indépendante, lutte contre la corruption.</p>
+            </div>
+        </div>
+    </section>
+
+
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Romuald WADAGNI</h4>
+                <p style="color:rgba(255,255,255,0.8);line-height:1.7;">Candidat à l'élection présidentielle béninoise de 2026. Un leadership éprouvé au service du Bénin.</p>
+                <div class="social-links">
+                    <a href="#">📘</a><a href="#">🐦</a><a href="#">📷</a><a href="#">📺</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#stats">Statistiques</a></li>
+                    <li><a href="#videos">Vidéos</a></li>
+                    <li><a href="#actualites">Actualités</a></li>
+                    <li><a href="#forum">Forum</a></li>
+                    <li><a href="#challenges">Challenges</a></li>
+                    <li><a href="#programme">Programme</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>S'Engager</h4>
+                <ul>
+                    <li><a href="#rejoindre">Adhésion</a></li>
+                    <li><a href="#videos">Envoyer Vidéo</a></li>
+                    <li><a href="#forum">Forum</a></li>
+                    <li><a href="#challenges">Challenges</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="#">📍 Cotonou, Bénin</a></li>
+                    <li><a href="#">📧 contact@wadagni2026.bj</a></li>
+                    <li><a href="#">📱 +229 XX XX XX XX</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Romuald WADAGNI - Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <div class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'});">↑</div>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.getElementById('scrollTop');
+            if (window.scrollY > 500) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        const observerOptions = { threshold: 0.5 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                    entry.target.classList.add('animated');
+                    const numberEl = entry.target.querySelector('.stat-number');
+                    animateCounter(numberEl);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.stat-card').forEach(card => observer.observe(card));
+        
+        function animateCounter(element) {
+            const text = element.textContent;
+            const hasSlash = text.includes('/');
+            if (hasSlash) return;
+            
+            const hasPlus = text.includes('+');
+            const target = parseInt(text.replace(/\D/g, ''));
+            if (isNaN(target)) return;
+            
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString() + (hasPlus ? '+' : '');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString() + (hasPlus ? '+' : '');
+                }
+            }, 16);
+        }
+
+
+        //hero animation 
+
+                // Animation GSAP du nouveau hero
+        window.addEventListener('load', () => {
+            const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+            // ZOOM SYNCHRONISÉ : Background, Texte et Image portrait EN MÊME TEMPS
+            tl.to(['.hero-video', '.hero-bg', '.hero-text', '.hero-image-container'], {
+                scale: 1,
+                opacity: 1,
+                duration: 2.5,
+                ease: 'power2.out'
+            })
+
+            // Apparition des accents de drapeau
+            .to(['.flag-left', '.flag-right'], {
+                opacity: 0.15,
+                duration: 1.5
+            }, '-=1.5')
+
+            // Étoiles décoratives (apparition successive)
+            .to('.star', {
+                opacity: 1,
+                duration: 0.3,
+                stagger: 0.1,
+                scale: [0, 1.5, 1],
+                ease: 'elastic.out(1, 0.5)'
+            }, '-=0.8')
+
+            // Scroll indicator
+            .to('.scroll-indicator', {
+                opacity: 1,
+                duration: 1
+            }, '-=0.5');
+
+            // Animation continue des étoiles (pulsation)
+            gsap.to('.star', {
+                scale: 1.3,
+                opacity: 0.6,
+                duration: 2,
+                stagger: 0.2,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut'
+            });
+
+            // Animation du nom au survol
+            const nameElement = document.querySelector('.hero-title .name');
+            nameElement.addEventListener('mouseenter', () => {
+                gsap.to(nameElement, {
+                    scale: 1.05,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+
+            nameElement.addEventListener('mouseleave', () => {
+                gsap.to(nameElement, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+        });
+
+        // Parallax subtil au mouvement de la souris
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = (e.clientX / window.innerWidth) - 0.5;
+            const mouseY = (e.clientY / window.innerHeight) - 0.5;
+
+            const heroImage = document.querySelector('.hero-image');
+            const heroText = document.querySelector('.hero-text');
+            const heroPortrait = document.querySelector('.hero-image-container');
+            
+            if (heroImage && heroText && heroPortrait) {
+                gsap.to(heroImage, {
+                    x: mouseX * 30,
+                    y: mouseY * 30,
+                    duration: 1,
+                    ease: 'power2.out'
+                });
+
+                gsap.to(heroText, {
+                    x: mouseX * -10,
+                    y: mouseY * -10,
+                    duration: 1,
+                    ease: 'power2.out'
+                });
+
+                gsap.to(heroPortrait, {
+                    x: mouseX * 15,
+                    y: mouseY * 15,
+                    duration: 1,
+                    ease: 'power2.out'
+                });
+            }
+        });
+    </script>
+</body>
+</html>
