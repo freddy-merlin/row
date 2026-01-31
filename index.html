@@ -556,6 +556,15 @@
                     color: rgba(255, 255, 255, 0.8);
                 }
 
+                .hero-description-mobile {
+                    font-size: 1.1rem;
+                    line-height: 1.8;
+                    max-width: 650px;
+                    margin: 0 0 3rem 0;
+                    color: rgba(255, 255, 255, 0.8);
+                    display: none;
+                }
+
                 .hero-cta {
                     display: flex;
                     gap: 1.5rem;
@@ -702,7 +711,7 @@
                 @media (max-width: 640px) {
 
                         .hero {
-                                padding-top: 350px;  /* Ajouter cette ligne */
+                                padding-top: 350px;   
                             }
 
                 .hero-badge {
@@ -752,6 +761,15 @@
                     .hero-cta .btn {
                         width: 100%;
                     }
+
+                     .hero-description {
+                   display: none;
+                }
+
+                .hero-description-mobile {
+                   
+                    display: block;
+                }
                 }
                 
                 /* Stats Section */
@@ -1495,6 +1513,10 @@
                 <p class="hero-description">
                     Avec une vision claire, une expérience internationale et un engagement total pour notre nation, 
                     je suis prêt à conduire le Bénin vers un avenir de prospérité, de justice et de développement durable.
+                </p>
+
+                <p class="hero-description-mobile">
+                    Une vision claire pour conduire le Bénin vers un avenir de prospérité et de développement durable.
                 </p>
                 
                 <div class="hero-cta">
