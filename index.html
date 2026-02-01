@@ -1438,42 +1438,597 @@
         .checkbox-group input[type="checkbox"] {
             width: auto;
         }
- 
+
+
+
+        /* Countdown Section - Nouveau design */
+.countdown-section {
+    padding: 100px 40px;
+    background: linear-gradient(135deg, #1a2332 0%, #2c3e50 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.countdown-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:  linear-gradient(135deg, var(--dark) 0%, #2c3e50 100%);
+    animation: pulseBackground 8s ease-in-out infinite alternate;
+}
+
+@keyframes pulseBackground {
+    0% { opacity: 0.3; }
+    100% { opacity: 0.7; }
+}
+
+.countdown-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.countdown-header {
+    margin-bottom: 60px;
+}
+
+.countdown-container h2 {
+    font-family: 'TestSohne Kraftig', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 15px;
+    background:  #f4b657;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.countdown-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 50px;
+    perspective: 1000px;
+}
+
+.countdown-item {
+    position: relative;
+    width: 180px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   /* transition: all 0.3s ease;
+    transform-style: preserve-3d;*/
+}
+
+.countdown-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    background: linear-gradient(135deg, 
+        rgba(69, 108, 177, 0.3) 0%, 
+        rgba(244, 182, 87, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.countdown-item:hover {
+    transform: translateY(-10px) rotateX(5deg);
+    border-color: rgba(244, 182, 87, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 60px rgba(244, 182, 87, 0.1);
+}
+
+.countdown-item:hover::before {
+    opacity: 1;
+}
+
+.countdown-number {
+    font-family: 'Montserrat Bold', sans-serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: var(--primary-yellow);
+    text-shadow: 0 0 30px rgba(244, 182, 87, 0.5);
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.countdown-label {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: relative;
+    z-index: 1;
+}
+
+.countdown-separator {
+    color: var(--primary-yellow);
+    font-size: 3rem;
+    font-weight: 100;
+    opacity: 0.5;
+    transform: translateY(-20px);
+}
+
+.countdown-message {
+    font-size: 1.3rem;
+    color: white;
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* Progress Container */
+.progress-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.progress-bar-total {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, 
+        var(--primary-blue) 0%, 
+        var(--primary-yellow) 100%);
+    border-radius: 4px;
+    width: 0%;
+    transition: width 1s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.3), 
+        transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .countdown-item {
+        width: 150px;
+        height: 170px;
+    }
+    
+    .countdown-number {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .countdown-timer {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .countdown-item {
+        width: calc(50% - 15px);
+        height: 150px;
+    }
+    
+    .countdown-number {
+        font-size: 3.5rem;
+    }
+    
+    .countdown-separator {
+        display: none;
+    }
+    
+    .countdown-container h2 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .countdown-item {
+        width: calc(50% - 10px);
+        height: 130px;
+    }
+    
+    .countdown-number {
+        font-size: 2.8rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+    }
+    
+    .countdown-container h2 {
+        font-size: 2rem;
+    }
+}
+
+
+/* Header - Nouveau design transparent et stylé */
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(69, 108, 177, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+header.scrolled {
+    background: rgba(69, 108, 177, 0.95);
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
+    padding: 5px 0;
+}
+
+nav {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+}
+
+.logo-container::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #f4b657, #ffffff);
+    transition: width 0.6s ease;
+}
+
+.logo-container:hover::after {
+    width: 100%;
+}
+
+.logo-text h1 {
+    font-size: 26px;
+    font-weight: 900;
+    color: #f4b657;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.logo-text h1::before {
+     
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+/* Navigation Links - Nouveau style */
+.nav-links {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    border-radius: 50px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s;
+}
+
+.nav-links a:hover::before {
+    left: 100%;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: #f4b657;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 80%;
+}
+
+.nav-links a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Hover effect avec icônes */
+.nav-links li:nth-child(1) a::before { content: '🏠'; }
+.nav-links li:nth-child(2) a::before { content: '📊'; }
+.nav-links li:nth-child(3) a::before { content: '🎬'; }
+.nav-links li:nth-child(4) a::before { content: '📰'; }
+.nav-links li:nth-child(5) a::before { content: '💬'; }
+.nav-links li:nth-child(6) a::before { content: '🏆'; }
+.nav-links li:nth-child(7) a::before { content: '📋'; }
+.nav-links li:nth-child(8) a::before { content: '🤝'; }
+
+.nav-links a span {
+    opacity: 0.9;
+}
+
+.nav-links a:hover span {
+    opacity: 1;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Hamburger Menu amélioré */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s;
+}
+
+.hamburger:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+.hamburger span {
+    width: 25px;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+    background: #f4b657;
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+    background: #f4b657;
+}
+
+/* Menu mobile amélioré */
+@media (max-width: 968px) {
+    .hamburger {
+        display: flex;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 300px;
+        height: calc(100vh - 70px);
+        background: rgba(69, 108, 177, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 30px;
+        gap: 15px;
+        box-shadow: 5px 0 30px rgba(0, 0, 0, 0.3);
+        transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 0 20px 20px 0;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-links.active {
+        left: 0;
+    }
+    
+    .nav-links li {
+        opacity: 0;
+        transform: translateX(-20px);
+        animation: fadeInRight 0.5s forwards;
+    }
+    
+    @keyframes fadeInRight {
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    
+    .nav-links a {
+        padding: 15px 25px;
+        font-size: 16px;
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-links a:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateX(10px);
+    }
+    
+    /* Délai pour l'animation des items */
+    .nav-links li:nth-child(1) { animation-delay: 0.1s; }
+    .nav-links li:nth-child(2) { animation-delay: 0.2s; }
+    .nav-links li:nth-child(3) { animation-delay: 0.3s; }
+    .nav-links li:nth-child(4) { animation-delay: 0.4s; }
+    .nav-links li:nth-child(5) { animation-delay: 0.5s; }
+    .nav-links li:nth-child(6) { animation-delay: 0.6s; }
+    .nav-links li:nth-child(7) { animation-delay: 0.7s; }
+    .nav-links li:nth-child(8) { animation-delay: 0.8s; }
+}
+
+@media (max-width: 640px) {
+    nav {
+        padding: 12px 20px;
+    }
+    
+    .logo-text h1 {
+        font-size: 22px;
+    }
+    
+    .nav-links {
+        width: 250px;
+    }
+}
+
+/* Animation d'entrée pour la nav */
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+header {
+    animation: slideDown 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Effet d'onde au clic */
+.nav-links a:active {
+    transform: scale(0.95);
+}
+      
     </style>
 </head>
 
 <body>
-    <header id="header">
-        <nav>
-            <div class="logo-container">
-               <!-- <div class="flag-icon"></div>-->
-                <div class="logo-text">
-                    <h1 style=" color: #f4b657 ;">ROW 2026</h1>
-                   <!-- <p>Pour un Bénin Nouveau</p>-->
-                </div>
+   <!-- Header Section -->
+<header id="header">
+    <nav>
+        <div class="logo-container">
+            <div class="logo-text">
+                <h1>ROW 2026</h1>
             </div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#accueil">Accueil</a></li>
-                <li><a href="#stats">Stats</a></li>
-                <li><a href="#videos">Vidéos</a></li>
-                <li><a href="#actualites">Actualités</a></li>
-                <li><a href="#forum">Forum</a></li>
-                <li><a href="#challenges">Challenges</a></li>
-                <li><a href="#programme">Programme</a></li>
-                <li><a href="#rejoindre">Rejoindre</a></li>
-            </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span><span></span><span></span>
-            </div>
-        </nav>
-    </header>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#accueil"><span>Accueil</span></a></li>
+            <li><a href="#stats"><span>Stats</span></a></li>
+            <li><a href="#videos"><span>Vidéos</span></a></li>
+            <li><a href="#actualites"><span>Actualités</span></a></li>
+            <li><a href="#forum"><span>Forum</span></a></li>
+            <li><a href="#challenges"><span>Challenges</span></a></li>
+            <li><a href="#programme"><span>Programme</span></a></li>
+            <li><a href="#rejoindre"><span>Rejoindre</span></a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+</header>
 
     <!-- Hero Section -->
     <section class="hero" id="accueil">
         <!-- Background layers -->
         
         <video class="hero-video" autoplay muted loop playsinline>
-            <source src="{{ asset('video/row.mp4') }}" type="video/mp4">
+            <source src="row.mp4" type="video/mp4">
             Votre navigateur ne supporte pas la vidéo.
         </video>
 
@@ -1704,6 +2259,42 @@
         </a>
     </section>
 
+    <!-- Countdown Timer Section -->
+<section class="countdown-section" id="countdown">
+    <div class="countdown-container">
+        <div class="countdown-header">
+            <h2>Le compte à rebours a commencé</h2>
+            <p class="countdown-subtitle">Élection présidentielle • 12 avril 2026</p>
+        </div>
+        
+        <div class="countdown-timer">
+            <div class="countdown-item">
+                <div class="countdown-number" id="days">000</div>
+                <div class="countdown-label">Jours</div>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="hours">00</div>
+                <div class="countdown-label">Heures</div>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="minutes">00</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-item">
+                <div class="countdown-number" id="seconds">00</div>
+                <div class="countdown-label">Secondes</div>
+            </div>
+        </div>
+        
+        <p class="countdown-message">Chaque seconde compte pour construire l'avenir du Bénin. Rejoignez le mouvement dès maintenant !</p>
+        
+       
+    </div>
+</section>
+
     <section class="news-section" id="actualites">
         <h2>Actualités de la Campagne</h2>
         <div class="news-grid">
@@ -1882,7 +2473,7 @@
 
     <section class="program" id="programme">
         <h2 class="section-title">Notre Programme</h2>
-        <p class="section-subtitle">6 Piliers pour Transformer le Bénin</p>
+        <p class="section-subtitle">8 Piliers pour Transformer le Bénin</p>
         <div class="program-cards">
             <div class="program-card">
                 <div class="card-icon">🎓</div>
@@ -1910,6 +2501,16 @@
                 <p>Mécanisation, irrigation, transformation locale, autosuffisance alimentaire.</p>
             </div>
             <div class="program-card">
+                <div class="card-icon">⚖️</div>
+                <h3>Justice & Gouvernance</h3>
+                <p>État de droit renforcé, justice indépendante, lutte contre la corruption.</p>
+            </div>
+             <div class="program-card">
+                <div class="card-icon">⚖️</div>
+                <h3>Justice & Gouvernance</h3>
+                <p>État de droit renforcé, justice indépendante, lutte contre la corruption.</p>
+            </div>
+             <div class="program-card">
                 <div class="card-icon">⚖️</div>
                 <h3>Justice & Gouvernance</h3>
                 <p>État de droit renforcé, justice indépendante, lutte contre la corruption.</p>
@@ -2292,7 +2893,198 @@
                 closeModal(event.target.id);
             }
         }
+
+      // Countdown Timer - Version améliorée
+function updateCountdown() {
+    // Date de l'élection : 12 avril 2026 à 7h00 (heure locale)
+    const electionDate = new Date('April 12, 2026 07:00:00').getTime();
+    const now = new Date().getTime();
+    const totalDuration = electionDate - new Date('January 1, 2026 00:00:00').getTime();
+    const timeRemaining = electionDate - now;
+    
+    // Calculer jours, heures, minutes, secondes
+    const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+    
+    // Animation fluide des nombres
+    animateNumber('days', days, 2);
+    animateNumber('hours', hours, 2);
+    animateNumber('minutes', minutes, 2);
+    animateNumber('seconds', seconds, 2);
+    
+    // Calculer le pourcentage de progression
+    const timeElapsed = totalDuration - timeRemaining;
+    const progressPercentage = Math.min(100, Math.max(0, (timeElapsed / totalDuration) * 100));
+    
+    // Animation fluide de la barre de progression
+    gsap.to('#progress-fill', {
+        width: `${progressPercentage}%`,
+        duration: 1,
+        ease: 'power2.out'
+    });
+    
+    // Mettre à jour le pourcentage avec animation
+    const percentageElement = document.getElementById('progress-percentage');
+    gsap.to(percentageElement, {
+        innerHTML: `${Math.round(progressPercentage)}%`,
+        duration: 1,
+        snap: { innerHTML: 1 },
+        ease: 'power2.out'
+    });
+    
+    // Si le compte à rebours est terminé
+    if (timeRemaining < 0) {
+        clearInterval(countdownInterval);
+        document.querySelector('.countdown-timer').innerHTML = `
+            <div class="election-day-announcement">
+                <h3 style="color: #f4b657; font-size: 3rem; margin-bottom: 20px;">🎉 Le Jour J est arrivé !</h3>
+                <p style="color: white; font-size: 1.5rem;">Votre voix compte pour le Bénin de demain.</p>
+            </div>
+        `;
+        document.getElementById('progress-percentage').textContent = '100%';
+        document.getElementById('progress-fill').style.width = '100%';
+    }
+}
+
+// Fonction pour animer les nombres
+function animateNumber(elementId, targetValue, digits) {
+    const element = document.getElementById(elementId);
+    const currentValue = parseInt(element.textContent) || 0;
+    
+    gsap.to(element, {
+        innerHTML: targetValue.toString().padStart(digits, '0'),
+        duration: 0.5,
+        snap: { innerHTML: 1 },
+        ease: 'power2.out',
+        onUpdate: function() {
+            const value = Math.round(parseInt(element.innerHTML) || 0);
+            element.innerHTML = value.toString().padStart(digits, '0');
+            
+            // Ajouter un effet de pulse au changement
+            if (value !== currentValue) {
+                gsap.to(element, {
+                    scale: 1.2,
+                    duration: 0.1,
+                    yoyo: true,
+                    repeat: 1,
+                    ease: 'power2.out'
+                });
+            }
+        }
+    });
+}
+
+// Animation d'entrée avec GSAP
+function initCountdownAnimation() {
+    gsap.from('.countdown-item', {
+        duration: 1,
+        y: 50,
+        opacity: 0,
+        stagger: 0.1,
+        ease: 'back.out(1.7)',
+        scrollTrigger: {
+            trigger: '.countdown-section',
+            start: 'top 80%',
+        }
+    });
+    
+    gsap.from('.progress-container', {
+        duration: 1.5,
+        y: 30,
+        opacity: 0,
+        ease: 'power2.out',
+        scrollTrigger: {
+            trigger: '.countdown-section',
+            start: 'top 80%',
+        }
+    });
+}
+
+// Lancer le compte à rebours immédiatement
+updateCountdown();
+
+// Mettre à jour toutes les secondes
+const countdownInterval = setInterval(updateCountdown, 1000);
+
+// Initialiser l'animation au chargement
+window.addEventListener('load', () => {
+    initCountdownAnimation();
+});
+
+
+
+// Animation de la navigation au scroll
+window.addEventListener('scroll', () => {
+    const header = document.getElementById('header');
+    const scrollTop = document.getElementById('scrollTop');
+    
+    if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+    
+    if (window.scrollY > 500) {
+        scrollTop.classList.add('visible');
+    } else {
+        scrollTop.classList.remove('visible');
+    }
+});
+
+// Animation GSAP pour les liens de navigation
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('mouseenter', (e) => {
+        gsap.to(e.target, {
+            scale: 1.05,
+            duration: 0.3,
+            ease: 'back.out(1.7)'
+        });
+    });
+    
+    link.addEventListener('mouseleave', (e) => {
+        gsap.to(e.target, {
+            scale: 1,
+            duration: 0.3,
+            ease: 'power2.out'
+        });
+    });
+});
+
+// Animation du logo
+const logo = document.querySelector('.logo-container');
+logo.addEventListener('mouseenter', () => {
+    gsap.to(logo, {
+        y: -3,
+        duration: 0.3,
+        ease: 'power2.out'
+    });
+});
+
+logo.addEventListener('mouseleave', () => {
+    gsap.to(logo, {
+        y: 0,
+        duration: 0.3,
+        ease: 'power2.out'
+    });
+});
+
+// Animation d'entrée des liens de navigation (desktop)
+if (window.innerWidth > 968) {
+    gsap.from('.nav-links li', {
+        duration: 0.5,
+        y: -20,
+        opacity: 0,
+        stagger: 0.05,
+        ease: 'back.out(1.7)',
+        delay: 0.5
+    });
+}
  </script>
+
+
+
 
 </body>
 </html>
