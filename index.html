@@ -2071,6 +2071,190 @@ header {
 }
       
     </style>
+
+
+<style>
+    /* ========================================
+   CORRECTIONS URGENTES POUR MOBILE
+   Basées sur les screenshots du téléphone
+   ======================================== */
+
+/* 1. SECTION HERO - Corrections principales */
+@media (max-width: 640px) {
+    .hero {
+        min-height: auto !important;  /* Laisse le contenu définir la hauteur */
+        height: auto !important;       /* Pas de hauteur fixe */
+        max-height: none !important;   /* Pas de limite */
+        padding-top: 80px !important;  /* Espace pour le header */
+        padding-bottom: 40px !important;
+        overflow: visible !important;  /* Permet le scroll */
+    }
+
+    .hero-content {
+        padding-top: 20px !important;  /* Réduit drastiquement */
+        padding-bottom: 40px;
+        gap: 2rem;
+        flex-direction: column;
+    }
+
+    /* 2. L'IMAGE DU CANDIDAT - Taille réduite */
+    .hero-image-container {
+        flex: 0 0 auto !important;     /* Pas de taille fixe */
+        width: 100% !important;
+        max-width: 320px !important;   /* Limite la largeur */
+        margin: 0 auto;
+    }
+
+    .candidate-photo {
+        height: 400px !important;      /* Réduit de 650px à 400px */
+        max-height: 50vh !important;   /* Maximum 50% de l'écran */
+        width: 100%;
+    }
+
+    .candidate-photo img {
+        object-fit: cover;
+        object-position: top center;   /* Garde le visage visible */
+    }
+
+    /* 3. LE TEXTE HERO - Plus compact */
+    .hero-text {
+        order: -1;  /* Met le texte AVANT l'image */
+        padding: 0 1rem;
+    }
+
+    .hero-badge {
+        padding: 0.4rem 1rem !important;
+        font-size: 1rem !important;
+        margin-bottom: 1rem;
+    }
+
+    .hero-title {
+        font-size: 2.8rem !important;  /* Réduit encore plus */
+        line-height: 1.1;
+        margin-bottom: 1rem;
+    }
+
+    .hero-title .year {
+        font-size: 2.2rem !important;
+    }
+
+    /* 4. DESCRIPTION - Cache la longue, montre la courte */
+    .hero-description {
+        display: none !important;
+    }
+
+    .hero-description-mobile {
+        display: block !important;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        padding: 0 0.5rem;
+    }
+
+    /* 5. BOUTONS CTA - Stack vertical */
+    .hero-cta {
+        flex-direction: column;
+        width: 100%;
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+
+    .hero-cta .btn {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 1rem;
+    }
+
+    /* 6. SUPPRIME le scroll indicator sur mobile */
+    .scroll-indicator {
+        display: none !important;
+    }
+
+    /* 7. SUPPRIME les éléments décoratifs sur mobile */
+    .star,
+    .flag-accent {
+        display: none !important;
+    }
+
+    /* 8. VIDEO de fond - Ajustements */
+    .hero-video {
+        transform: scale(1.1) !important;  /* Réduit le zoom */
+        opacity: 0.3 !important;            /* Plus transparent */
+    }
+
+    .hero-overlay {
+        background: linear-gradient(
+            135deg,
+            rgba(69, 108, 177, 0.75) 10%,
+            rgba(26, 35, 50, 0.85) 50%,
+            rgba(244, 182, 87, 0.65) 100%
+        ) !important;  /* Overlay plus opaque pour la lisibilité */
+    }
+}
+
+/* 9. POUR LES TRÈS PETITS ÉCRANS (< 400px) */
+@media (max-width: 400px) {
+    .hero {
+        padding-top: 70px !important;
+    }
+
+    .hero-title {
+        font-size: 2.2rem !important;
+    }
+
+    .hero-title .year {
+        font-size: 1.8rem !important;
+    }
+
+    .candidate-photo {
+        height: 350px !important;
+    }
+
+    .hero-image-container {
+        max-width: 280px !important;
+    }
+}
+
+/* 10. FIX pour le header qui cache le contenu */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+body {
+    padding-top: 0 !important;  /* Supprime tout padding global */
+}
+
+/* ========================================
+   ORDRE D'AFFICHAGE OPTIMAL SUR MOBILE
+   ======================================== */
+@media (max-width: 640px) {
+    .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Ordre :
+       1. Texte (hero-text)
+       2. Image (hero-image-container) 
+    */
+    .hero-text {
+        order: 1;
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-image-container {
+        order: 2;
+        margin-top: 2rem;
+    }
+}
+
+
+</style>
 </head>
 
 <body>
@@ -2102,7 +2286,7 @@ header {
         <!-- Background layers -->
         
         <video class="hero-video" autoplay muted loop playsinline>
-            <source src="{{ asset('video/row.mp4') }}" type="video/mp4">
+            <source src="row.mp4" type="video/mp4">
             Votre navigateur ne supporte pas la vidéo.
         </video>
 
