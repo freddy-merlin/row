@@ -136,6 +136,7 @@
         rgba(255, 255, 255, 1),
         rgba(69, 108, 177, 1)
         );
+ 
 
 
 
@@ -414,12 +415,16 @@
         .hero {
                     position: relative;
                     width: 100%;
-                    height: 100vh;
-                    overflow: hidden;
+                     
+                     min-height: 100vh;   
+                    max-height: 100vh;   
+                    padding-top: 70px; 
                     display: flex;
                     align-items: center;
                     justify-content: center;
                 }
+
+    
 
                 .hero-video {
                     position: absolute;
@@ -710,9 +715,11 @@
 
                 @media (max-width: 640px) {
 
-                        .hero {
-                                padding-top: 350px;   
-                            }
+                      .hero {
+                            min-height: auto;     
+                            padding-top: 80px;    
+                            padding-bottom: 30px;
+                        }
 
                 .hero-badge {
                 /* border: 2px solid var(--primary-yellow);*/
@@ -726,9 +733,7 @@
                 display: none;
                 }
 
-                    .hero-content {
-                        padding-top: 10em;   
-                    }
+                     
                     .hero-image-container {
                         flex: 0 0 280px;
                     }
@@ -1994,6 +1999,76 @@ header {
 .nav-links a:active {
     transform: scale(0.95);
 }
+
+      
+        /* ========================================
+   EFFETS DE TEXTE HERO PERSONNALISÉS
+   ======================================== */
+
+
+
+/* 2. Text Reveal (Suspense) sur "WADAGNI 2026" */
+.hero-title-liquid {
+    background: linear-gradient(45deg, #456cb1, #f4b657, #ffffff, #456cb1);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: liquidFlow 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(244, 182, 87, 0.5));
+    display: inline-block;
+}
+
+@keyframes liquidFlow {
+    0%, 100% { 
+        background-position: 0% 50%; 
+        filter: drop-shadow(0 0 30px rgba(244, 182, 87, 0.5)) hue-rotate(0deg); 
+    }
+    50% { 
+        background-position: 100% 50%; 
+        filter: drop-shadow(0 0 40px rgba(69, 108, 177, 0.6)) hue-rotate(20deg); 
+    }
+}
+
+/* 3. Pulse Scale sur la description */
+.hero-description-pulse {
+    animation: pulseScaleDescription 3s ease-in-out infinite;
+    transform-origin: center;
+}
+
+@keyframes pulseScaleDescription {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.03);
+        opacity: 0.95;
+    }
+}
+
+/* Ajustements responsive pour les effets */
+@media (max-width: 640px) {
+    .hero-badge-animated {
+        -webkit-text-stroke: 1.5px white;
+        text-stroke: 1.5px white;
+    }
+    
+    .hero-description-pulse {
+        animation: pulseScaleDescription 2.5s ease-in-out infinite;
+    }
+    
+    @keyframes pulseScaleDescription {
+        0%, 100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.02);
+            opacity: 0.97;
+        }
+    }
+}
       
     </style>
 </head>
@@ -2023,12 +2098,11 @@ header {
     </nav>
 </header>
 
-    <!-- Hero Section -->
     <section class="hero" id="accueil">
         <!-- Background layers -->
         
         <video class="hero-video" autoplay muted loop playsinline>
-            <source src="row.mp4" type="video/mp4">
+            <source src="{{ asset('video/row.mp4') }}" type="video/mp4">
             Votre navigateur ne supporte pas la vidéo.
         </video>
 
@@ -2048,29 +2122,25 @@ header {
         <div class="hero-decoration star star-6"></div>
 
         <!-- Main content -->
-        <div class="hero-content">
+       <div class="hero-content">
          
             <div class="hero-text">
                 <div class="hero-badge" style=" color: white;">Ensemble avec Romuald</div>
                 
-                <h1 class="hero-title">
-                   <div style="display: flex; gap: 26px;">
-                            <span class=" year">WADAGNI</span>
-                            <span class=" year">2026</span>
-                    </div>
+               <h1 class="hero-title">
+   <div style="display: flex; gap: 26px;">
+        <span class="year hero-title-liquid">WADAGNI</span>
+        <span class="year hero-title-liquid">2026</span>
+    </div>
+</h1>
+      
 
-                   
-                    
-                </h1>
-                
-               <!-- <h1>Ensemble avec<span class="name-highlight">Romuald WADAGNI</span></h1>-->
-                
-                <p class="hero-description">
+ <p class="hero-description hero-description-pulse">
                     Avec une vision claire, une expérience internationale et un engagement total pour notre nation, 
                     je suis prêt à conduire le Bénin vers un avenir de prospérité, de justice et de développement durable.
                 </p>
 
-                <p class="hero-description-mobile">
+                <p class="hero-description-mobile hero-description-pulse">
                     Une vision claire pour conduire le Bénin vers un avenir de prospérité et de développement durable.
                 </p>
                 
