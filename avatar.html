@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WADAGNI 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════
+   RESET & VARIABLES
+   ════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+
+:root {
+  --blue:     #2a4e8a;
+  --blue-lt:  #456cb1;
+  --blue-hl:  #6b9fe2;
+  --gold:     #f4b657;
+  --gold-dk:  #d4963d;
+  --green:    #00c878;
+  --green-dk: #009E60;
+  --pink:     #ff6b8a;
+  --skin:     #ffcc99;
+  --skin-sd:  #e6a86e;
+  --dark:     #0c1524;
+  --card:     rgba(255,255,255,.06);
+  --card-b:   rgba(255,255,255,.10);
+}
+
+html, body {
+  height:100%; overflow:hidden;
+  background: var(--dark);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ════════════════════════════════════════════════
+   DEEP BACKGROUND  –  mesh + noise grain
+   ════════════════════════════════════════════════ */
+.bg-mesh {
+  position:fixed; inset:0; z-index:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 15% 20%, rgba(69,108,177,.38) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 55% at 82% 75%, rgba(244,182,87,.25) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 50% at 60% 15%, rgba(0,200,120,.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 45% at 30% 80%, rgba(107,159,226,.20) 0%, transparent 60%);
+  animation: mesh-drift 18s ease-in-out infinite alternate;
+}
+@keyframes mesh-drift {
+  0%   { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.06) rotate(1.5deg); }
+}
+
+/* grain overlay */
+.grain {
+  position:fixed; inset:0; z-index:1; pointer-events:none;
+  opacity:.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* ════════════════════════════════════════════════
+   FLOATING PARTICLES
+   ════════════════════════════════════════════════ */
+.particles { position:fixed; inset:0; z-index:2; pointer-events:none; }
+.p {
+  position:absolute; border-radius:50%; opacity:0;
+  animation: p-rise linear infinite;
+}
+.p:nth-child(1){left:6%;  width:5px;  height:5px;  background:var(--gold);    animation-duration:9s;  animation-delay:0s;}
+.p:nth-child(2){left:15%; width:3px;  height:3px;  background:var(--blue-hl); animation-duration:12s; animation-delay:1.8s;}
+.p:nth-child(3){left:28%; width:6px;  height:6px;  background:var(--green);   animation-duration:8s;  animation-delay:3.2s;}
+.p:nth-child(4){left:42%; width:4px;  height:4px;  background:var(--pink);    animation-duration:11s; animation-delay:0.6s;}
+.p:nth-child(5){left:56%; width:3px;  height:3px;  background:var(--gold);    animation-duration:10s; animation-delay:2.4s;}
+.p:nth-child(6){left:68%; width:5px;  height:5px;  background:var(--blue-hl); animation-duration:7s;  animation-delay:4s;}
+.p:nth-child(7){left:78%; width:4px;  height:4px;  background:var(--green);   animation-duration:13s; animation-delay:1s;}
+.p:nth-child(8){left:88%; width:6px;  height:6px;  background:var(--pink);    animation-duration:9s;  animation-delay:5s;}
+.p:nth-child(9){left:35%; width:3px;  height:3px;  background:var(--gold);    animation-duration:15s; animation-delay:7s;}
+.p:nth-child(10){left:72%;width:5px;  height:5px;  background:var(--blue-hl); animation-duration:8s;  animation-delay:3s;}
+
+@keyframes p-rise {
+  0%   { transform:translateY(100vh) scale(0); opacity:0; }
+  8%   { opacity:.75; transform:translateY(92vh) scale(1); }
+  92%  { opacity:.5; }
+  100% { transform:translateY(-60px) scale(.6); opacity:0; }
+}
+
+/* ════════════════════════════════════════════════
+   SCENE LAYOUT
+   ════════════════════════════════════════════════ */
+.scene {
+  position:relative; z-index:3;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  min-height:100vh;
+  padding: 1.8rem 1rem 2rem;
+  gap: 1.6rem;
+}
+
+/* ════════════════════════════════════════════════
+   TOP BADGES
+   ════════════════════════════════════════════════ */
+.top-bar {
+  position:fixed; top:0; left:0; right:0; z-index:10;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:1rem 1.4rem;
+  pointer-events:none;
+}
+.badge {
+  pointer-events:auto;
+  display:flex; align-items:center; gap:.45rem;
+  background:var(--card); backdrop-filter:blur(14px);
+  border:1px solid var(--card-b);
+  padding:.38rem .82rem; border-radius:99px;
+  font-size:.75rem; font-weight:600; letter-spacing:.05em; text-transform:uppercase;
+  color:var(--gold);
+}
+.badge .live-dot {
+  width:7px; height:7px; border-radius:50%;
+  background:var(--green); box-shadow:0 0 7px var(--green);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+.member-badge { color:rgba(255,255,255,.75); }
+.member-badge em { font-style:normal; color:var(--gold); font-weight:700; }
+
+/* ════════════════════════════════════════════════
+   AVATAR CONTAINER
+   ════════════════════════════════════════════════ */
+.avatar-stage {
+  position:relative;
+  width:280px; height:320px;
+  display:flex; align-items:flex-end; justify-content:center;
+}
+
+/* glow platform under avatar */
+.platform-glow {
+  position:absolute; bottom:8px;
+  width:200px; height:24px;
+  background:radial-gradient(ellipse, rgba(69,108,177,.5) 0%, transparent 70%);
+  border-radius:50%;
+  animation: plat-pulse 2.4s ease-in-out infinite;
+}
+@keyframes plat-pulse { 0%,100%{opacity:.6; transform:scaleX(1)} 50%{opacity:1; transform:scaleX(1.08)} }
+
+/* avatar bob */
+.avatar-root {
+  position:relative;
+  width:240px; height:300px;
+  animation: bob 3.2s ease-in-out infinite;
+}
+@keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+
+/* ─── SPEECH BUBBLE ─── */
+.speech-bubble {
+  position:absolute;
+  top: 12px; right: -215px;
+  width:205px;
+  opacity:0;
+  transform: scale(.82) translateX(-10px);
+  transition: opacity .32s cubic-bezier(.34,1.56,0,1),
+              transform .32s cubic-bezier(.34,1.56,0,1);
+  z-index:5;
+  pointer-events:none;
+}
+.speech-bubble.show { opacity:1; transform:scale(1) translateX(0); }
+
+.bubble-bg {
+  background:#fff; color:var(--dark);
+  padding:.78rem .92rem;
+  border-radius:1.1rem 1.1rem 1.1rem .28rem;
+  font-size:.88rem; font-weight:600; line-height:1.42;
+  box-shadow: 0 8px 28px rgba(0,0,0,.32);
+  position:relative;
+}
+.bubble-bg::before {
+  content:'';
+  position:absolute; left:-13px; bottom:16px;
+  border:9px solid transparent;
+  border-right-color:#fff;
+}
+
+/* ─── ORBITAL RING ─── */
+.orbital-ring {
+  position:absolute;
+  top:18px; left:50%;
+  transform:translateX(-50%);
+  width:180px; height:180px;
+  border-radius:50%;
+  border:2.5px solid transparent;
+  background:conic-gradient(from 0deg, var(--gold), var(--blue-hl), var(--green), var(--pink), var(--gold)) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: orbit-spin 3.6s linear infinite;
+  z-index:0;
+}
+@keyframes orbit-spin { to { transform:translateX(-50%) rotate(360deg); } }
+
+/* small orbiting dots on the ring */
+.orbit-dot {
+  position:absolute;
+  width:10px; height:10px; border-radius:50%;
+  top:50%; left:50%;
+  transform-origin:0 0;
+  z-index:1;
+}
+.orbit-dot-1 { background:var(--gold);    animation:dot-orbit 3.6s linear infinite; transform-origin: 0 0; }
+.orbit-dot-2 { background:var(--green);   animation:dot-orbit 3.6s linear infinite; animation-delay:-1.2s; }
+.orbit-dot-3 { background:var(--pink);    animation:dot-orbit 3.6s linear infinite; animation-delay:-2.4s; }
+
+/* We position dots via JS because pure-CSS orbit on a ring edge is cleaner with JS. See script. */
+
+/* ════════════════════════════════════════════════
+   SVG CHARACTER
+   ════════════════════════════════════════════════ */
+.char-svg { width:100%; height:100%; }
+
+/* head-bob on speaking */
+.avatar-root.speaking .head-g {
+  animation: head-nod .38s ease-in-out infinite alternate;
+}
+@keyframes head-nod { to { transform:translateY(-3px) rotate(.6deg); } }
+
+/* eyebrow lift */
+.brow { transition: transform .22s; }
+.avatar-root.speaking .brow { transform:translateY(-2.5px); }
+
+/* ─── BLINK (clip top half of eye-white) ─── */
+.eye-top { transition: d .12s; }
+
+/* ─── MOUTH STATES ─── */
+.m-closed { display:block; }
+.m-s, .m-m, .m-l { display:none; }
+
+.avatar-root.mouth-S .m-closed { display:none; } .avatar-root.mouth-S .m-s { display:block; }
+.avatar-root.mouth-M .m-closed { display:none; } .avatar-root.mouth-M .m-m { display:block; }
+.avatar-root.mouth-L .m-closed { display:none; } .avatar-root.mouth-L .m-l { display:block; }
+
+/* cheek flush */
+.cheek { opacity:.3; transition:opacity .3s; }
+.avatar-root.speaking .cheek { opacity:.5; }
+
+/* ════════════════════════════════════════════════
+   TITLE
+   ════════════════════════════════════════════════ */
+.title-block { text-align:center; }
+.title-block h1 {
+  font-family:'Fredoka', sans-serif;
+  font-size:clamp(2rem, 5.5vw, 3rem);
+  font-weight:700;
+  background:linear-gradient(135deg, var(--gold) 0%, #fff 45%, var(--gold) 100%);
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent;
+  letter-spacing:-.01em;
+}
+.title-block p {
+  margin-top:.32rem;
+  color:rgba(255,255,255,.58);
+  font-size:1rem; font-weight:500;
+}
+
+.wave { display:inline-block; animation:wave-hand 1s ease-in-out infinite; }
+@keyframes wave-hand { 0%,100%{transform:rotate(0)} 30%{transform:rotate(18deg)} 60%{transform:rotate(-8deg)} }
+
+/* ════════════════════════════════════════════════
+   INTERACTIVE PILLS
+   ════════════════════════════════════════════════ */
+.pills {
+  display:flex; flex-wrap:wrap; gap:.55rem;
+  justify-content:center; max-width:540px;
+}
+.pill {
+  display:flex; align-items:center; gap:.38rem;
+  background:var(--card); backdrop-filter:blur(12px);
+  border:1px solid var(--card-b);
+  padding:.42rem .9rem; border-radius:99px;
+  font-size:.82rem; font-weight:600;
+  cursor:pointer;
+  opacity:0; transform:translateY(16px) scale(.88);
+  transition: opacity .45s, transform .45s,
+              background .22s, border-color .22s, box-shadow .22s,
+              transform .15s;
+}
+.pill.in { opacity:1; transform:translateY(0) scale(1); }
+.pill:hover {
+  background:rgba(244,182,87,.15);
+  border-color:rgba(244,182,87,.35);
+  box-shadow:0 0 20px rgba(244,182,87,.28);
+  transform:translateY(-2px) scale(1.04);
+}
+.pill:active { transform:scale(.96); }
+.pill .icon { font-size:.95rem; }
+
+/* ════════════════════════════════════════════════
+   CTA BUTTONS
+   ════════════════════════════════════════════════ */
+.cta-row {
+  display:flex; gap:.85rem; flex-wrap:wrap; justify-content:center;
+  opacity:0; transform:translateY(20px);
+  transition: opacity .55s .2s, transform .55s .2s;
+}
+.cta-row.in { opacity:1; transform:translateY(0); }
+
+.btn {
+  display:inline-flex; align-items:center; gap:.48rem;
+  padding:.78rem 1.7rem; border-radius:99px;
+  font-family:'Fredoka', sans-serif;
+  font-size:.95rem; font-weight:600;
+  border:none; cursor:pointer;
+  transition:transform .2s, box-shadow .2s;
+  text-decoration:none;
+}
+.btn:active { transform:scale(.94) !important; }
+
+.btn-join {
+  background:linear-gradient(135deg, var(--gold), var(--gold-dk));
+  color:var(--dark);
+  box-shadow:0 5px 22px rgba(244,182,87,.42);
+}
+.btn-join:hover { transform:translateY(-2px) scale(1.04); box-shadow:0 9px 30px rgba(244,182,87,.5); }
+
+.btn-replay {
+  background:var(--card); backdrop-filter:blur(10px);
+  border:1px solid var(--card-b); color:#fff;
+}
+.btn-replay:hover { background:rgba(255,255,255,.12); }
+
+/* ════════════════════════════════════════════════
+   CONFETTI
+   ════════════════════════════════════════════════ */
+.confetti-piece {
+  position:fixed; top:-30px; z-index:999;
+  pointer-events:none; opacity:0;
+  border-radius:3px;
+}
+.confetti-piece.burst {
+  animation:conf-fall 2.4s cubic-bezier(.2,0,.55,1) forwards;
+}
+@keyframes conf-fall {
+  0%   { transform:translateY(0) rotate(0deg) scale(1); opacity:1; }
+  100% { transform:translateY(105vh) rotate(820deg) scale(.4); opacity:0; }
+}
+
+/* ════════════════════════════════════════════════
+   UNLOCK OVERLAY  (first-click on mobile)
+   ════════════════════════════════════════════════ */
+.unlock-overlay {
+  position:fixed; inset:0; z-index:50;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(12,21,36,.82); backdrop-filter:blur(6px);
+  cursor:pointer;
+  transition:opacity .4s;
+}
+.unlock-overlay.gone { opacity:0; pointer-events:none; }
+.unlock-card {
+  text-align:center;
+  animation: card-pop .5s cubic-bezier(.34,1.56,0,1);
+}
+@keyframes card-pop { from{transform:scale(.7);opacity:0} to{transform:scale(1);opacity:1} }
+.unlock-card .icon { font-size:3.2rem; margin-bottom:.6rem; }
+.unlock-card p {
+  font-family:'Fredoka',sans-serif;
+  font-size:1.3rem; font-weight:600;
+  color:#fff;
+}
+.unlock-card .sub { font-family:'DM Sans',sans-serif; font-size:.82rem; color:rgba(255,255,255,.5); margin-top:.25rem; }
+
+/* ════════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════════ */
+@media(max-width:580px){
+  .avatar-root { width:185px; height:240px; }
+  .speech-bubble { right:-160px; width:155px; top:6px; }
+  .bubble-bg { font-size:.8rem; padding:.68rem .78rem; }
+  .orbital-ring { width:135px; height:135px; top:10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── background layers ── -->
+<div class="bg-mesh"></div>
+<div class="grain"></div>
+
+<!-- ── particles ── -->
+<div class="particles">
+  <div class="p"></div><div class="p"></div><div class="p"></div><div class="p"></div><div class="p"></div>
+  <div class="p"></div><div class="p"></div><div class="p"></div><div class="p"></div><div class="p"></div>
+</div>
+
+<!-- ── top badges ── -->
+<div class="top-bar">
+  <div class="badge"><div class="live-dot"></div>WADAGNI 2026</div>
+  <div class="badge member-badge">🏆 <em>12 847</em> membres</div>
+</div>
+
+<!-- ── unlock overlay (mobile audio gate) ── -->
+<div class="unlock-overlay" id="unlockOverlay">
+  <div class="unlock-card">
+    <div class="icon">🔊</div>
+    <p>Touchez pour activer le son</p>
+    <p class="sub">Votre guide vous attend !</p>
+  </div>
+</div>
+
+<!-- ── main scene ── -->
+<div class="scene">
+
+  <!-- avatar stage -->
+  <div class="avatar-stage">
+    <div class="platform-glow"></div>
+
+    <!-- orbital ring + dots -->
+    <div class="orbital-ring" id="orbitalRing">
+      <div class="orbit-dot orbit-dot-1" id="dot1"></div>
+      <div class="orbit-dot orbit-dot-2" id="dot2"></div>
+      <div class="orbit-dot orbit-dot-3" id="dot3"></div>
+    </div>
+
+    <!-- avatar root (bob + speaking classes) -->
+    <div class="avatar-root" id="avatarRoot">
+
+      <!-- speech bubble -->
+      <div class="speech-bubble" id="speechBubble">
+        <div class="bubble-bg" id="bubbleText">…</div>
+      </div>
+
+      <!-- ── SVG CHARACTER ── -->
+      <svg class="char-svg" viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="gSkin" cx="50%" cy="38%" r="52%">
+            <stop offset="0%"   stop-color="#ffdcb5"/>
+            <stop offset="100%" stop-color="var(--skin-sd)"/>
+          </radialGradient>
+          <radialGradient id="gShirt" cx="50%" cy="0%" r="90%">
+            <stop offset="0%"   stop-color="#4a7fd4"/>
+            <stop offset="100%" stop-color="#1e3a6e"/>
+          </radialGradient>
+          <linearGradient id="gHair" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#2e1a0e"/>
+            <stop offset="100%" stop-color="#4f3020"/>
+          </linearGradient>
+          <linearGradient id="gGold" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="var(--gold)"/>
+            <stop offset="100%" stop-color="var(--gold-dk)"/>
+          </linearGradient>
+        </defs>
+
+        <!-- ── BODY ── -->
+        <!-- shirt torso -->
+        <ellipse cx="120" cy="280" rx="68" ry="48" fill="url(#gShirt)"/>
+        <!-- collar V gold stripe -->
+        <path d="M98,240 L120,258 L142,240" fill="none" stroke="url(#gGold)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- left arm -->
+        <ellipse cx="55"  cy="265" rx="17" ry="26" fill="url(#gShirt)" transform="rotate(-10 55 265)"/>
+        <!-- right arm (slightly raised – wave pose) -->
+        <ellipse cx="185" cy="255" rx="17" ry="26" fill="url(#gShirt)" transform="rotate(15 185 255)"/>
+        <!-- hands (circles) -->
+        <circle cx="44"  cy="288" r="11" fill="url(#gSkin)"/>
+        <circle cx="196" cy="276" r="11" fill="url(#gSkin)"/>
+
+        <!-- ── HEAD GROUP ── -->
+        <g class="head-g" id="headG">
+
+          <!-- hair back shape -->
+          <ellipse cx="120" cy="108" rx="60" ry="56" fill="url(#gHair)"/>
+
+          <!-- neck -->
+          <rect x="109" y="178" width="22" height="26" rx="9" fill="url(#gSkin)"/>
+
+          <!-- face -->
+          <ellipse cx="120" cy="140" rx="54" ry="52" fill="url(#gSkin)"/>
+
+          <!-- ears -->
+          <ellipse cx="67"  cy="143" rx="9"  ry="13" fill="var(--skin-sd)"/>
+          <ellipse cx="173" cy="143" rx="9"  ry="13" fill="var(--skin-sd)"/>
+          <ellipse cx="67"  cy="143" rx="5.5" ry="8" fill="url(#gSkin)"/>
+          <ellipse cx="173" cy="143" rx="5.5" ry="8" fill="url(#gSkin)"/>
+
+          <!-- hair front / bangs -->
+          <path d="M66,122 Q72,88 100,94 Q110,82 120,86 Q130,82 140,94 Q168,88 174,122 Q170,102 152,104 Q137,97 120,100 Q103,97 88,104 Z" fill="url(#gHair)"/>
+          <!-- a small curl detail -->
+          <path d="M174,122 Q180,128 176,138" fill="none" stroke="url(#gHair)" stroke-width="5" stroke-linecap="round"/>
+
+          <!-- ── EYEBROWS ── -->
+          <path class="brow" d="M86,113 Q96,107 106,113"  fill="none" stroke="url(#gHair)" stroke-width="3.8" stroke-linecap="round"/>
+          <path class="brow" d="M134,113 Q144,107 154,113" fill="none" stroke="url(#gHair)" stroke-width="3.8" stroke-linecap="round"/>
+
+          <!-- ── LEFT EYE ── -->
+          <g id="eyeL">
+            <ellipse cx="96" cy="130" rx="11.5" ry="12.5" fill="#fff"/>
+            <!-- lid (for blink – animated via JS) -->
+            <path class="eye-top" id="lidL" d="M84.5,130 Q96,117.5 107.5,130" fill="url(#gHair)"/>
+            <circle id="irisL"  cx="96" cy="131" r="7"   fill="var(--blue-lt)"/>
+            <circle id="pupilL" cx="96" cy="131" r="3.5" fill="#1a1a2e"/>
+            <circle cx="99" cy="128" r="2" fill="#fff" opacity=".88"/>
+          </g>
+
+          <!-- ── RIGHT EYE ── -->
+          <g id="eyeR">
+            <ellipse cx="144" cy="130" rx="11.5" ry="12.5" fill="#fff"/>
+            <path class="eye-top" id="lidR" d="M132.5,130 Q144,117.5 155.5,130" fill="url(#gHair)"/>
+            <circle id="irisR"  cx="144" cy="131" r="7"   fill="var(--blue-lt)"/>
+            <circle id="pupilR" cx="144" cy="131" r="3.5" fill="#1a1a2e"/>
+            <circle cx="147" cy="128" r="2" fill="#fff" opacity=".88"/>
+          </g>
+
+          <!-- ── NOSE ── -->
+          <path d="M118,142 Q120,152 117,155 Q120,157.5 123,155 Q120,152 122,142" fill="none" stroke="var(--skin-sd)" stroke-width="1.6" stroke-linecap="round"/>
+
+          <!-- ── CHEEK BLUSH ── -->
+          <ellipse class="cheek" cx="78"  cy="155" rx="8" ry="4.5" fill="var(--pink)"/>
+          <ellipse class="cheek" cx="162" cy="155" rx="8" ry="4.5" fill="var(--pink)"/>
+
+          <!-- ── MOUTH – 4 states ── -->
+          <!-- closed smile -->
+          <path class="m-closed" d="M107,168 Q120,178 133,168" fill="none" stroke="#c0525a" stroke-width="3" stroke-linecap="round"/>
+          <!-- S -->
+          <g class="m-s">
+            <ellipse cx="120" cy="170" rx="6.5" ry="4.5" fill="#8b2230"/>
+            <ellipse cx="120" cy="167.8" rx="6.5" ry="1.8" fill="#fff"/>
+          </g>
+          <!-- M -->
+          <g class="m-m">
+            <ellipse cx="120" cy="170" rx="8.5" ry="7"   fill="#8b2230"/>
+            <ellipse cx="120" cy="166.5" rx="8.5" ry="2.2" fill="#fff"/>
+          </g>
+          <!-- L -->
+          <g class="m-l">
+            <ellipse cx="120" cy="171" rx="11" ry="10"  fill="#8b2230"/>
+            <ellipse cx="120" cy="165.5" rx="11" ry="2.8" fill="#fff"/>
+          </g>
+
+        </g><!-- end head-g -->
+      </svg>
+    </div><!-- end avatar-root -->
+  </div><!-- end avatar-stage -->
+
+  <!-- title -->
+  <div class="title-block">
+    <h1><span class="wave">👋</span> Bienvenue sur WADAGNI 2026</h1>
+    <p>Le mouvement pour un Bénin prospère</p>
+  </div>
+
+  <!-- pills -->
+  <div class="pills" id="pillsWrap">
+    <div class="pill" data-msg="L'éducation, c'est la clé qui ouvre toutes les portes !"><span class="icon">📚</span> Éducation</div>
+    <div class="pill" data-msg="Des emplois dignes pour chaque jeune Béninois !"><span class="icon">💼</span> Emploi</div>
+    <div class="pill" data-msg="Une santé de qualité accessible à tous !"><span class="icon">🏥</span> Santé</div>
+    <div class="pill" data-msg="Des routes modernes qui connectent le pays !"><span class="icon">🏗️</span> Infrastructure</div>
+    <div class="pill" data-msg="Valorisons nos agriculteurs et notre terre !"><span class="icon">🌾</span> Agriculture</div>
+    <div class="pill" data-msg="Une justice équitable pour chaque citoyen !"><span class="icon">⚖️</span> Justice</div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-row" id="ctaRow">
+    <button class="btn btn-join" id="btnJoin">✨ Rejoindre la plateforme</button>
+    <button class="btn btn-replay" id="btnReplay">🔄 Revoir le message</button>
+  </div>
+
+</div><!-- end scene -->
+
+<!-- confetti root -->
+<div id="confettiRoot"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     JAVASCRIPT  –  Speech, lip-sync, eyes, blinking, orbit
+     ═══════════════════════════════════════════════════════ -->
+<script>
+(function(){
+'use strict';
+
+/* ─── DOM refs ─── */
+const avatarRoot  = document.getElementById('avatarRoot');
+const speechBub   = document.getElementById('speechBubble');
+const bubbleText  = document.getElementById('bubbleText');
+const unlockOv    = document.getElementById('unlockOverlay');
+const ctaRow      = document.getElementById('ctaRow');
+const confRoot    = document.getElementById('confettiRoot');
+
+const irisL  = document.getElementById('irisL');
+const pupilL = document.getElementById('pupilL');
+const irisR  = document.getElementById('irisR');
+const pupilR = document.getElementById('pupilR');
+const lidL   = document.getElementById('lidL');
+const lidR   = document.getElementById('lidR');
+
+/* ─── eye base positions ─── */
+const EYE = { lx:96, ly:131, rx:144, ry:131 };
+const MAX_SHIFT = 3.2;
+
+/* ─── WELCOME SCRIPT ─── */
+const SCRIPT = [
+  "Salut ! Je suis votre guide sur WADAGNI 2026 !",
+  "Je suis vraiment content de vous accueillir ici !",
+  "Découvrez notre programme pour transformer le Bénin.",
+  "Éducation, Emploi, Santé… des priorités qui comptent !",
+  "Cliquez sur les thèmes en bas pour en savoir plus.",
+  "Chaque petit geste compte pour notre avenir.",
+  "Alors, vous êtes prêt à faire partie du changement ?"
+];
+
+/* ─── PILL reactions ─── */
+document.querySelectorAll('.pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    const msg = pill.dataset.msg;
+    if (msg) speakSentence(msg);
+  });
+});
+
+/* ═══ EYE TRACKING ═══ */
+function onPointer(e) {
+  const rect = avatarRoot.getBoundingClientRect();
+  const cx   = rect.left + rect.width  / 2;
+  const cy   = rect.top  + rect.height / 2;
+  const angle = Math.atan2(e.clientY - cy, e.clientX - cx);
+  const dist  = Math.min(Math.hypot(e.clientX - cx, e.clientY - cy), 380);
+  const f     = Math.min(dist / 380, 1) * MAX_SHIFT;
+  const dx = Math.cos(angle) * f;
+  const dy = Math.sin(angle) * f;
+
+  irisL.setAttribute('cx',  EYE.lx + dx);
+  irisL.setAttribute('cy',  EYE.ly + dy);
+  pupilL.setAttribute('cx', EYE.lx + dx);
+  pupilL.setAttribute('cy', EYE.ly + dy);
+
+  irisR.setAttribute('cx',  EYE.rx + dx);
+  irisR.setAttribute('cy',  EYE.ry + dy);
+  pupilR.setAttribute('cx', EYE.rx + dx);
+  pupilR.setAttribute('cy', EYE.ry + dy);
+}
+document.addEventListener('mousemove', onPointer);
+document.addEventListener('touchmove', e => { e.preventDefault(); onPointer(e.touches[0]); }, {passive:false});
+
+/* ═══ BLINK ═══ */
+const LID_OPEN  = { L:"M84.5,130 Q96,117.5 107.5,130", R:"M132.5,130 Q144,117.5 155.5,130" };
+const LID_CLOSE = { L:"M84.5,130 Q96,130   107.5,130", R:"M132.5,130 Q144,130   155.5,130" };
+
+function doBlink() {
+  lidL.setAttribute('d', LID_CLOSE.L);
+  lidR.setAttribute('d', LID_CLOSE.R);
+  setTimeout(() => {
+    lidL.setAttribute('d', LID_OPEN.L);
+    lidR.setAttribute('d', LID_OPEN.R);
+  }, 140);
+  setTimeout(doBlink, 2200 + Math.random()*2800);
+}
+setTimeout(doBlink, 1400);
+
+/* ═══ LIP SYNC ═══ */
+const MOUTHS = ['mouth-S','mouth-M','mouth-L','mouth-M','mouth-S','mouth-M','mouth-L'];
+let lipTimer = null;
+function startLips() {
+  let i = 0;
+  lipTimer = setInterval(() => {
+    avatarRoot.classList.remove('mouth-S','mouth-M','mouth-L');
+    avatarRoot.classList.add(MOUTHS[i % MOUTHS.length]);
+    i++;
+  }, 155);
+}
+function stopLips() {
+  clearInterval(lipTimer);
+  avatarRoot.classList.remove('mouth-S','mouth-M','mouth-L','speaking');
+}
+
+/* ═══ SHOW / HIDE BUBBLE ═══ */
+function showBubble(txt) {
+  bubbleText.textContent = txt;
+  speechBub.classList.add('show');
+}
+function hideBubble() { speechBub.classList.remove('show'); }
+
+/* ═══ SPEAK A SENTENCE (Web Speech + lip-sync) ═══ */
+function speakSentence(text, onDone) {
+  // cancel previous
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+
+  showBubble(text);
+  avatarRoot.classList.add('speaking');
+  startLips();
+
+  if (!window.speechSynthesis) {
+    // no speech API – just animate for text.length * 55 ms
+    const dur = Math.max(text.length * 55, 1800);
+    setTimeout(() => { stopLips(); if(onDone) onDone(); }, dur);
+    return;
+  }
+
+  const utt   = new SpeechSynthesisUtterance(text);
+  utt.lang    = 'fr-FR';
+  utt.rate    = 0.88;
+  utt.pitch   = 1.12;
+  utt.volume  = 1;
+
+  // pick French voice
+  const voices = speechSynthesis.getVoices();
+  const fr = voices.find(v => v.lang === 'fr-FR') || voices.find(v => v.lang.startsWith('fr'));
+  if (fr) utt.voice = fr;
+
+  utt.onend = utt.onerror = () => { stopLips(); if(onDone) onDone(); };
+
+  speechSynthesis.speak(utt);
+}
+
+/* ═══ SEQUENTIAL WELCOME SCRIPT ═══ */
+let scriptIdx = 0;
+function runScript(idx) {
+  scriptIdx = idx ?? scriptIdx;
+  if (scriptIdx >= SCRIPT.length) {
+    // reveal CTA
+    ctaRow.classList.add('in');
+    hideBubble();
+    return;
+  }
+  speakSentence(SCRIPT[scriptIdx], () => {
+    setTimeout(() => {
+      hideBubble();
+      scriptIdx++;
+      setTimeout(() => runScript(), 850);
+    }, 1100);
+  });
+}
+
+/* ═══ PILLS STAGGERED REVEAL ═══ */
+function revealPills() {
+  document.querySelectorAll('.pill').forEach((p, i) => {
+    setTimeout(() => p.classList.add('in'), 600 + i * 130);
+  });
+}
+
+/* ═══ CONFETTI ═══ */
+function fireConfetti() {
+  const colours = ['#f4b657','#456cb1','#00c878','#ff6b8a','#fff','#a78bfa'];
+  for (let i = 0; i < 70; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti-piece';
+    const size = 6 + Math.random()*10;
+    c.style.width  = size+'px';
+    c.style.height = size+'px';
+    c.style.left   = (Math.random()*100)+'vw';
+    c.style.background = colours[~~(Math.random()*colours.length)];
+    c.style.borderRadius = Math.random()>.45 ? '50%' : '3px';
+    c.style.animationDelay = (Math.random()*.5)+'s';
+    confRoot.appendChild(c);
+    requestAnimationFrame(() => c.classList.add('burst'));
+    setTimeout(() => c.remove(), 2700);
+  }
+}
+
+/* ═══ ORBIT DOTS (JS-driven, smooth) ═══ */
+const dot1 = document.getElementById('dot1');
+const dot2 = document.getElementById('dot2');
+const dot3 = document.getElementById('dot3');
+const ORBIT_R = 90; // radius in px  (half of ring width)
+
+function animateOrbit(t) {
+  // ring centre relative to itself (ring is 180x180)
+  const cx = 90, cy = 90;
+  const speed = 0.0018; // rad/ms
+
+  [dot1, dot2, dot3].forEach((dot, i) => {
+    const offset = (i / 3) * Math.PI * 2;
+    const angle  = speed * t + offset;
+    const x = cx + ORBIT_R * Math.cos(angle) - 5; // -half dot size
+    const y = cy + ORBIT_R * Math.sin(angle) - 5;
+    dot.style.transform = `translate(${x}px, ${y}px)`;
+  });
+  requestAnimationFrame(animateOrbit);
+}
+requestAnimationFrame(animateOrbit);
+
+/* ═══ BUTTONS ═══ */
+document.getElementById('btnJoin').addEventListener('click', () => {
+  fireConfetti();
+  speakSentence("Bravo ! Bienvenue dans la famille WADAGNI 2026 !", () => {
+    setTimeout(hideBubble, 1300);
+  });
+});
+document.getElementById('btnReplay').addEventListener('click', () => {
+  scriptIdx = 0;
+  runScript(0);
+});
+
+/* ═══ UNLOCK OVERLAY (mobile audio gate) ═══ */
+function unlockAudio() {
+  // create + play a tiny silent audio to unblock autoplay
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const osc = ctx.createOscillator();
+  osc.connect(ctx.destination);
+  osc.start(); osc.stop(ctx.currentTime + 0.001);
+
+  unlockOv.classList.add('gone');
+  setTimeout(() => unlockOv.remove(), 500);
+
+  // start the welcome script
+  revealPills();
+  setTimeout(() => runScript(0), 600);
+}
+
+/* ═══ INIT ═══ */
+(function init() {
+  // Desktop: no overlay needed – start directly
+  // Mobile: show overlay first
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    // wait for tap
+    unlockOv.addEventListener('click', unlockAudio, { once:true });
+  } else {
+    unlockOv.classList.add('gone');
+    setTimeout(() => unlockOv.remove(), 400);
+
+    // voices may not be ready yet – poll
+    function waitVoices() {
+      if (speechSynthesis && speechSynthesis.getVoices().length === 0) {
+        setTimeout(waitVoices, 250);
+        return;
+      }
+      revealPills();
+      setTimeout(() => runScript(0), 700);
+    }
+    waitVoices();
+  }
+})();
+
+})();
+</script>
+</body>
+</html>
